@@ -1,17 +1,12 @@
 import React, { useState, useEffect,useContext } from "react";
 import axios from "axios";
 import userEventContext from '../userEventContext';
+import SearchBar from "./SearchBar";
 
 function BusquedaSuperheroe() {
-const {uRl,inputName,cambiarPersonaje} =useContext(userEventContext);
-  const [id, setId] = useState([]);
+const {uRl,inputName,cambiarPersonaje,agregarPersonaje} =useContext(userEventContext);
    const [personaje, setPersonaje] = useState([]);
-  function agregarPersonaje(e) {
-    e.preventDefault();
-    const personajeId = e.target.id;
-    setId(personajeId);
-    console.log(id);
-  }
+ 
 // console.log(uRl);
   useEffect(() => {
     const fetchData = () => {
@@ -26,10 +21,10 @@ const {uRl,inputName,cambiarPersonaje} =useContext(userEventContext);
            if (res.data.results !== undefined) {
              setPersonaje(res.data.results);
            } else {
-             setPersonaje([]);
-             const mensajeError = document.createElement("p");
-             mensajeError.textContent = "Personaje no valido";
+            document.body.innerHTML = "no valido"
+            
            }
+           
         })
         .catch((error) => {
           console.log(error);
@@ -42,22 +37,23 @@ const {uRl,inputName,cambiarPersonaje} =useContext(userEventContext);
   },[uRl] );
   
   return (
-    
-    <div className="container text-center ">
-      <div className="row d-flex justify-content-center">
-        {personaje.map((person) => (
+    <div className="container text-center " >
+      < SearchBar/>
+      <div className="row  ">
+        {  personaje.map((person) => (
           
           <React.Fragment>
             
-            <div className="col " key={person.id}>
+            <div className="col-md-3 mx-auto " key={person.id} >
               <h5 className="mt-5">{person.name}</h5>
-              <img width="200" className="img-thumbnail" src={person.image.url} alt="" />
+              <img   className="img-thumbnail" src={person.image.url} alt="" />
               <br />
-              {/* <p>Superpoderes {JSON.stringify(person.powerstats)}</p> */}
               <button
+
                 id={person.id}
                 onClick={agregarPersonaje}
                 className="btn btn-success mt-3"
+                 value={person.biography.aligment}
               >
                 Agregar
               </button>

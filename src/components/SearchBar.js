@@ -1,5 +1,6 @@
 import React,{useState,useContext} from 'react';
 import userEventContext from '../userEventContext';
+import {Link} from "react-router-dom";
 function SearchBar (){
   const {inputName,cambioPersonaje,uRl} =useContext(userEventContext);
     return(
@@ -13,8 +14,12 @@ function SearchBar (){
         <div className="col-md-4">
         <form  className=" mt-3  mx-auto form-inline my-2 my-lg-0"/>
                 <input  className=" input-name form-control  mr-sm-2 mb-3 text-center" type="search" placeholder="Escribi tu superheroe favorito.." aria-label="Search" id="superValue"/>
-                <button onClick={cambioPersonaje} className=" btn mx-auto btn-outline-success my-2 my-sm-0 justify-content-end" id="buscar" type="submit">Buscar</button>
+                <button onClick={cambioPersonaje} className=" btn m btn-primary
+                 my-2 " id="buscar" type="submit">Buscar</button>
+                 <Link to="/equipo" >
+                 <button className="btn btn-primary mx-3">Equipo</button>
 
+                 </Link>
         </div>
 
      </div>
