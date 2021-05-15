@@ -3,15 +3,16 @@ const userEventContext = React.createContext();
 
 const EventProvider = ({ children }) => {
   let [inputName, setInputName] = useState("batman");
-  let [idEquipo, setidEquipo] = useState([]);
+  let [idTeam, setidTeam] = useState([]);
 
   // Obtener Id en el boton agregar
   function agregarPersonaje(e) {
     e.preventDefault();
     let personajeId = e.target.id;
-    let equipo = [...idEquipo, personajeId];
-    setidEquipo(equipo);
-    localStorage.setItem("id",JSON.stringify(equipo));
+    let team = [...idTeam, personajeId];
+    setidTeam(team);
+    localStorage.setItem("id",JSON.stringify(team));
+  
   }
 
   // Obtener value del nombre ingresado por el usuario en el input
@@ -20,9 +21,10 @@ const EventProvider = ({ children }) => {
     let estadoName = input_Name.value;
     setInputName(estadoName);
   };
+
   let uRl = `https://www.superheroapi.com/api.php/2831945550360412/search/${inputName}`;
   console.log(uRl);
-  const data = { inputName, cambioPersonaje, uRl, agregarPersonaje, idEquipo };
+  const data = { inputName, cambioPersonaje, uRl, agregarPersonaje, idTeam };
 
   return (
     <userEventContext.Provider value={data}>
