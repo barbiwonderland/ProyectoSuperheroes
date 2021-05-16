@@ -10,20 +10,23 @@ function ResultadoSuperHeroe() {
 
   // console.log(uRl);
   useEffect(() => {
-    const fetchData = () => {
-      axios
-        .get(`${uRl}`)
-        .then((res) => {
-          console.log(res);
-          setPersonaje(res.data.results);
-        })
-        .catch(() => {
-    alert("elija otro personaje")
-    window.location.reload();
-          
-        });
-    };
-    fetchData();
+      const fetchData = () => {
+     
+        axios
+          .get(`${uRl}`)
+          .then((res) => {
+            console.log(res);
+            setPersonaje(res.data.results);
+          })
+          .catch(() => {
+      console.log("error")
+            
+          });
+      
+    }
+      fetchData();
+    
+  
   }, [uRl]);
   
 
@@ -31,9 +34,9 @@ function ResultadoSuperHeroe() {
     <div className="container text-center ">
       <SearchBar />
       <div className="row  ">
-        {personaje.map((person) => (
+        { personaje.map((person) => (
           <React.Fragment key={person.id}>
-            <div className="col-md-3 mx-auto "  >
+            <div className="col-md-3 col-sm-10 mx-auto busqueda "  >
               <h5 className="mt-5">{person.name}</h5>
               <img  className="img-thumbnail" src={person.image.url} alt="" />
               <br />

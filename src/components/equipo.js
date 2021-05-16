@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import userEventContext from "../userEventContext";
+
 
 export default function Equipo() {
   const history = useHistory();
 
-const [pepe,setPepe]= useState([]);
-  const [equipoPersonajes, setequipoPersonajes] = useState(
-    []
-  );
+  const [pepe, setPepe] = useState([]);
+  const [equipoPersonajes, setequipoPersonajes] = useState([]);
   let personajesId = [];
   personajesId = JSON.parse(localStorage.getItem("id"));
-  personajesId.map(id=>{
-let pepe=`https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${id}`
-
-
-  })
+  personajesId.map((id) => {
+    let pepe = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${id}`;
+  });
 
   const equipo1 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[0]}`;
   const equipo2 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[1]}`;
@@ -24,65 +21,79 @@ let pepe=`https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/
   const equipo4 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[3]}`;
   const equipo5 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[4]}`;
   const equipo6 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[5]}`;
-  
-   
-  
+
   useEffect(() => {
-    
     const ObtenerEquipo = () => {
-      
       axios
-     
-         .all([
-           axios.get(equipo6),
-           axios.get(equipo1),
-           axios.get(equipo2),
-           axios.get(equipo3),
-           axios.get(equipo4),
-           axios.get(equipo5),
-         ])
+
+        .all([
+          axios.get(equipo6),
+          axios.get(equipo1),
+          axios.get(equipo2),
+          axios.get(equipo3),
+          axios.get(equipo4),
+          axios.get(equipo5),
+        ])
 
         .then((res) => {
-          
           console.log(res);
           setequipoPersonajes(res);
           console.log(equipoPersonajes);
-  
+          Loading();
+    
         })
 
         .catch(() => {
-          alert("agregue 6 personajes")
+          alert("agregue 6 personajes");
           history.push("/busqueda");
           window.location.reload();
-          
         });
     };
     ObtenerEquipo();
   }, []);
- 
+
   const ocultarDetalles = () => {
     let detalles = document.querySelector(".DetailsHidden");
     detalles.classList.toggle("hidden");
   };
-  const eliminarPersonaje =(e)=>{
+  const eliminarPersonaje = (e) => {
     e.preventDefault();
-    let borrarPersonaje= (e.target.id);
-    localStorage.removeItem(borrarPersonaje.value);
-    
-  }
+    let borrarPersonaje = e.target.id;
+    let LocalId = JSON.parse(localStorage.getItem("id"));
+    console.log(typeof LocalId)
+     let ResEliminar= LocalId.filter(x=> x !== borrarPersonaje)
+ localStorage.setItem("id",JSON.stringify(ResEliminar))
+   window.location.reload();
+  };
+
+   const Loading =()=>{
+     setTimeout(()=>{
+       const spinner= document.querySelector(".spinner-border")
+  
+       spinner.remove();
+      },100)
+   }
 
   return (
     <React.Fragment>
       <h1 className="text-center mb-5 mt-3">Equipo de Superheroes</h1>
-    
       <div className="container">
+  <div className="row text-center mx-auto">
+    <div className="d-flex justify-content-center mx-auto">
+    <div className="spinner-border text-primary" role="status">
+<span className="sr-only">Loading...</span>
+</div>
+      </div>
+    </div>
+       
         <div className="row">
+        
           {equipoPersonajes.map((x) => {
-            
             return (
-              <React.Fragment>
-                <div className="col-md-4 text-center personaje">
+              <React.Fragment key={x.data.id}>
+                <div className="col-md-4 col-sm-4 text-center personaje">
                   <div className="card text-center mx-auto mb-3">
+
                     <h3>{x.data.name}</h3>
                     <img
                       className=" card-img-top "
@@ -111,14 +122,20 @@ let pepe=`https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/
                         <li>Aliases: {x.data.biography.aliases[0]}</li>
                       </div>
                       <br />
-                       <button
+                      <button
                         onClick={ocultarDetalles}
                         className="btn btn-primary"
                       >
                         Detalles
-                      </button> 
+                      </button>
                       <br />
-                      <button id={x.data.id} className=" mt-3 btn btn-danger " onClick={eliminarPersonaje}>Eliminar</button>
+                      <button
+                        id={x.data.id}
+                        className=" mt-3 btn btn-danger "
+                        onClick={eliminarPersonaje}
+                      >
+                        Eliminar
+                      </button>
                     </div>
                   </div>
                 </div>
