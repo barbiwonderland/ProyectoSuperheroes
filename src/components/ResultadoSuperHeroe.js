@@ -32,12 +32,12 @@ function ResultadoSuperHeroe() {
       <SearchBar />
       <div className="row  ">
         {personaje.map((person) => (
-          <React.Fragment>
-            <div className="col-md-3 mx-auto " key={person.id}>
+          <React.Fragment key={person.id}>
+            <div className="col-md-3 mx-auto "  >
               <h5 className="mt-5">{person.name}</h5>
-              <img className="img-thumbnail" src={person.image.url} alt="" />
+              <img  className="img-thumbnail" src={person.image.url} alt="" />
               <br />
-              <button
+              <button 
                 id={person.id}
                 onClick={agregarPersonaje}
                 className="btn btn-success mt-3"

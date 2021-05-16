@@ -1,4 +1,17 @@
-.textDecoration{
+.dot{
     text-decoration: none;
     list-style: none;
+   
+}
+.hidden{
+    display: none;
+}
+
+.card{
+    width: 250px;
+    margin-bottom:20px;
+}
+.card-body{
+    padding:0!important;
+
 }

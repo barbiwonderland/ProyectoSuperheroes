@@ -24,7 +24,7 @@ const EventProvider = ({ children }) => {
 
   let uRl = `https://www.superheroapi.com/api.php/2831945550360412/search/${inputName}`;
   console.log(uRl);
-  const data = { inputName, cambioPersonaje, uRl, agregarPersonaje, idTeam };
+  const data = { inputName, cambioPersonaje, uRl, agregarPersonaje, };
 
   return (
     <userEventContext.Provider value={data}>
