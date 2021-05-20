@@ -19,3 +19,13 @@
     width: 5rem;
     height: 5rem;
 }
+.personaje img{
+
+    max-height: 40vh;
+    object-fit: cover;
+}
+
+.img-busqueda{
+        max-height: 40vh;
+        object-fit: cover;
+    }

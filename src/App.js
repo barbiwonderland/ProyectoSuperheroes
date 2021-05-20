@@ -1,13 +1,11 @@
-import ResultadoSuperheroe from "./components/ResultadoSuperHeroe";
+import ApiResults from "./components/ApiResults";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/styles/busqueda.css";
-import SearchBar from "./components/SearchBar";
 import { UserProvider } from "./usuarioContext";
 import { EventProvider } from "./userEventContext";
 import Equipo from "./components/equipo";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from "./components/login";
-import UI from "./ui";
 
 function App() {
 
@@ -19,8 +17,9 @@ function App() {
       <EventProvider>
     
         <Route exact path="/" component={Login}></Route>
-        <Route exact path="/busqueda" component={ResultadoSuperheroe}></Route>
+        <Route exact path="/busqueda" component={ApiResults}></Route>
         <Route exact path="/equipo" component={Equipo}></Route>
+        
         
       </EventProvider>
       

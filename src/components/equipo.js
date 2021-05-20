@@ -1,149 +1,134 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import ResultadoBusqueda from "../components/ResultadoBusqueda";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-import userEventContext from "../userEventContext";
+import Collapse from 'react-bootstrap/Collapse'
+function Equipo({}) {
 
+  //Estados
+  const [isLoading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  let [prueba, setPrueba] = useState([]);
 
-export default function Equipo() {
-  const history = useHistory();
-
-  const [pepe, setPepe] = useState([]);
-  const [equipoPersonajes, setequipoPersonajes] = useState([]);
-  let personajesId = [];
-  personajesId = JSON.parse(localStorage.getItem("id"));
-  personajesId.map((id) => {
-    let pepe = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${id}`;
-  });
-
-  const equipo1 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[0]}`;
-  const equipo2 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[1]}`;
-  const equipo3 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[2]}`;
-  const equipo4 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[3]}`;
-  const equipo5 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[4]}`;
-  const equipo6 = `https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${personajesId[5]}`;
-
+  //Extraigo de localstorage id selccionados
+  let conjuntoIds = localStorage.getItem("id");
+  //Lo convierto
+  conjuntoIds = JSON.parse(conjuntoIds);
   useEffect(() => {
-    const ObtenerEquipo = () => {
-      axios
-
-        .all([
-          axios.get(equipo6),
-          axios.get(equipo1),
-          axios.get(equipo2),
-          axios.get(equipo3),
-          axios.get(equipo4),
-          axios.get(equipo5),
-        ])
-
-        .then((res) => {
+    // Convierto los id en url dinámica
+    let url = conjuntoIds.map((x) => {
+      return ` https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${x}`;
+    });
+    console.log(url);
+    function obtenerApi() {
+      // mapeo los id y llamo a la api
+      axios.all(url.map((x) => axios.get(x))).then(
+        axios.spread(function (...res) {
+          // all requests are now complete
           console.log(res);
-          setequipoPersonajes(res);
-          console.log(equipoPersonajes);
-          Loading();
-    
+          if (res !== undefined) {
+            let respuesta = res.map((x) => x.data);
+            console.log(respuesta);
+            setPrueba(respuesta);
+            console.log(prueba);
+            setLoading(false);
+          }
         })
+      );
+    }
 
-        .catch(() => {
-          alert("agregue 6 personajes");
-          history.push("/busqueda");
-          window.location.reload();
-        });
-    };
-    ObtenerEquipo();
+    
+    obtenerApi();
   }, []);
-
-  const ocultarDetalles = () => {
-    let detalles = document.querySelector(".DetailsHidden");
-    detalles.classList.toggle("hidden");
-  };
+    // Loading
+    if (isLoading) {
+      return (
+        <div class="text-center">
+          <h1>Loading...</h1>
+        </div>
+      );
+    }
+  //Funcion para eliminar personaje del equipo
   const eliminarPersonaje = (e) => {
     e.preventDefault();
     let borrarPersonaje = e.target.id;
     let LocalId = JSON.parse(localStorage.getItem("id"));
-    console.log(typeof LocalId)
-     let ResEliminar= LocalId.filter(x=> x !== borrarPersonaje)
- localStorage.setItem("id",JSON.stringify(ResEliminar))
-   window.location.reload();
+    let ResEliminar = LocalId.filter((x) => x !== borrarPersonaje);
+    localStorage.setItem("id", JSON.stringify(ResEliminar));
+     window.location.reload();
   };
 
-   const Loading =()=>{
-     setTimeout(()=>{
-       const spinner= document.querySelector(".spinner-border")
-  
-       spinner.remove();
-      },100)
-   }
+  //Suma Powerstates
+  const SumaCombat = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.combat),0);
+  const SumaIntelligence = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.intelligence),0);
+  const SumaStrength = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.strength),0);
+  const SumaSpeed = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.speed),0);
+  const SumaDurability = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.durability),0);
+  const SumaPower = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.power),0);
+ //Peso y altura promedio del equipo
+ const SumaPeso = prueba.reduce((total, currentValue) => total = total + (currentValue.appearance.weight[1]),0);
+console.log(SumaPeso)
 
+ 
   return (
-    <React.Fragment>
-      <h1 className="text-center mb-5 mt-3">Equipo de Superheroes</h1>
-      <div className="container">
-  <div className="row text-center mx-auto">
-    <div className="d-flex justify-content-center mx-auto">
-    <div className="spinner-border text-primary" role="status">
-<span className="sr-only">Loading...</span>
-</div>
+    <div className="container text-center">
+      <h1 className=" text-center">Mi Equipo</h1>
+      <div className="dot SumaPowerstats rounded">
+      <li>Total Combat: {SumaCombat}</li>
+      <li>Total Intelligence: {SumaIntelligence}</li>
+      <li>Total Strength: {SumaStrength}</li>
+      <li>Total Speed: {SumaSpeed}</li>
+      <li>Total Durability: {SumaDurability}</li>
+      <li>Total Power: {SumaPower}</li>
+      </div>
+      <div className="row text-center ">
+        {prueba.map((x) => (
+          <React.Fragment key={x.id}>
+            <div className="col-4 text-center">
+              <p>{x.name}</p>
+              <img src={x.image.url} width="150" alt="" />
+              <div className="card-body">
+                <div className="dot mt-3">
+                  <h4 className="font-weight-bold">Powerstats</h4>
+                  <li>Combat: {x.powerstats.combat}</li>
+                  <li>Intelligence: {x.powerstats.intelligence}</li>
+                  <li>Strength: {x.powerstats.strength}</li>
+                  <li>Speed: {x.powerstats.speed}</li>
+                  <li>Durability: {x.powerstats.durability}</li>
+                  <li>Power: {x.powerstats.power}</li>
+                </div>
+              </div>
+              <Collapse in={open}>
+               
+              <div className="DetailsHidden dot ">
+                <h4 className="font-weight-bold">Detalles</h4>
+                <li>Full Name: {x.biography["full-name"]}</li>
+                <li>Eye Color: {x.appearance["eye-color"]}</li>
+                <li>Hair Color: {x.appearance["hair-color"]}</li>
+                <li>Weight: {x.appearance.weight[1]}</li>
+                <li>Height: {x.appearance.height[1]}</li>
+                <li></li>
+                <li>Base: {x.work.base}</li>
+                <li>Aliases: {x.biography.aliases[0]}</li>
+              </div>
+              </Collapse>
+             
+              <button
+                id={x.id}
+                onClick={() => setOpen(!open)}
+                aria-controls="example-collapse-text"
+                aria-expanded={open}
+                className="btn mt-2 btn-primary"
+              >
+                Detalles
+              </button>
+              <br />
+              <button id={x.id} onClick={eliminarPersonaje} className="btn mt-2 btn-danger">Eliminar</button>
+            </div>
+          </React.Fragment>
+        ))}
       </div>
     </div>
-       
-        <div className="row">
-        
-          {equipoPersonajes.map((x) => {
-            return (
-              <React.Fragment key={x.data.id}>
-                <div className="col-md-4 col-sm-4 text-center personaje">
-                  <div className="card text-center mx-auto mb-3">
-
-                    <h3>{x.data.name}</h3>
-                    <img
-                      className=" card-img-top "
-                      src={x.data.image.url}
-                      alt=""
-                    />
-                    <div className="card-body">
-                      <div className="dot mt-3">
-                        <h4 className="font-weight-bold">Powerstats</h4>
-                        <li>Combat: {x.data.powerstats.combat}</li>
-                        <li>Intelligence: {x.data.powerstats.intelligence}</li>
-                        <li>Strength: {x.data.powerstats.strength}</li>
-                        <li>Speed: {x.data.powerstats.speed}</li>
-                        <li>Durability: {x.data.powerstats.durability}</li>
-                        <li>Power: {x.data.powerstats.power}</li>
-                      </div>
-                      <div className="DetailsHidden dot hidden">
-                        <h4 className="font-weight-bold">Detalles</h4>
-                        <li>Full Name: {x.data.biography["full-name"]}</li>
-                        <li>Eye Color: {x.data.appearance["eye-color"]}</li>
-                        <li>Hair Color: {x.data.appearance["hair-color"]}</li>
-                        <li>Weight: {x.data.appearance.weight[1]}</li>
-                        <li>Height: {x.data.appearance.height[1]}</li>
-                        <li></li>
-                        <li>Base: {x.data.work.base}</li>
-                        <li>Aliases: {x.data.biography.aliases[0]}</li>
-                      </div>
-                      <br />
-                      <button
-                        onClick={ocultarDetalles}
-                        className="btn btn-primary"
-                      >
-                        Detalles
-                      </button>
-                      <br />
-                      <button
-                        id={x.data.id}
-                        className=" mt-3 btn btn-danger "
-                        onClick={eliminarPersonaje}
-                      >
-                        Eliminar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </React.Fragment>
-            );
-          })}
-        </div>
-      </div>
-    </React.Fragment>
   );
 }
+
+export default Equipo;
