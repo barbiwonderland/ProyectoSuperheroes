@@ -1,31 +1,41 @@
-.dot{
-    text-decoration: none;
-    list-style: none;
-   
+.dot {
+  text-decoration: none;
+  list-style: none;
 }
-.hidden{
-    display: none;
-}
-
-.card{
-    width: 250px;
-    margin-bottom:20px;
-}
-.card-body{
-    padding:0!important;
-
-}
-.spinner-border{
-    width: 5rem;
-    height: 5rem;
-}
-.personaje img{
-
-    max-height: 40vh;
-    object-fit: cover;
+.hidden {
+  display: none;
 }
 
-.img-busqueda{
-        max-height: 40vh;
-        object-fit: cover;
-    }
+.card {
+  width: 250px;
+  margin-bottom: 20px;
+}
+.card-body {
+  padding: 0 !important;
+}
+.spinner-border {
+  width: 5rem;
+  height: 5rem;
+}
+.personaje img {
+  max-height: 40vh;
+  object-fit: cover;
+}
+
+.img-busqueda {
+  max-height: 40vh;
+  object-fit: cover;
+}
+.SumaPowerstats {
+  margin: 0.5rem;
+  padding: 2rem !important;
+  text-transform: capitalize;
+  text-align: center;
+}
+.SumaPowerstats:hover {
+  font-weight: bold;
+}
+body{
+    opacity: .9;
+
+  }

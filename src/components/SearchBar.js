@@ -5,7 +5,7 @@ function SearchBar() {
   const { inputName, cambioPersonaje } = useContext(userEventContext);
 
   return (
-    <React.Fragment >
+    <React.Fragment>
       <h2 className="text-center my-3 ">Buscar Superheroes</h2>
 
       <div className="container text-center">
@@ -20,6 +20,7 @@ function SearchBar() {
               aria-label="Search"
               id="superValue"
             />
+            <div className="mensaje"></div>
             <button
               onClick={cambioPersonaje}
               className=" btn m btn-primary

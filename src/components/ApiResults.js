@@ -4,20 +4,33 @@ import userEventContext from "../userEventContext";
 import SearchBar from "./SearchBar";
 import ResultadoBusqueda from "./ResultadoBusqueda";
 
+
 function ApiResults({}) {
-  //Estados
   const { BaseUrl } = useContext(userEventContext);
+
+  //Estados
   const [personaje, setPersonaje] = useState([]);
   const [idTeam, setIdTeam] = useState([]);
   const [Loading, setLoading] = useState(true);
+  const [disabled, Setdisabled] = useState(false);
 
   //Funcion para agregar personaje al resultado
   function agregarPersonaje(e) {
     e.preventDefault();
     let personajeId = e.target.id;
-    let G = localStorage.getItem("id");
-    console.log(G);
-    setIdTeam(G);
+    let Localids = localStorage.getItem("id");
+    if(Localids !== null){
+      setIdTeam(Localids)
+    let IdLength =(JSON.parse(Localids).length)
+    if (IdLength === 5){
+      Setdisabled(true)
+      alert("Equipo completo :D ")
+
+
+      }
+  }
+   
+    // setIdTeam(Localids);
     let team = [...idTeam, personajeId];
     setIdTeam(team);
     localStorage.setItem("id", JSON.stringify(team));
@@ -71,8 +84,9 @@ function ApiResults({}) {
             <div className="row  ">
               {personaje.map((person) => {
                 return (
-                  <div className="col-4" key={person.id}>
+                  <div className="col-md-4 col-sm-12" key={person.id}>
                     <ResultadoBusqueda
+                    disabled={disabled}
                       key={person.id}
                       personaje={person}
                       agregarPersonaje={agregarPersonaje}

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import ResultadoBusqueda from "../components/ResultadoBusqueda";
 import axios from "axios";
-import Collapse from 'react-bootstrap/Collapse'
-function Equipo({}) {
+import { useHistory } from "react-router-dom";
 
+function Equipo({}) {
+  // History(para ir a una ruta anterior)
+  const history = useHistory();
   //Estados
   const [isLoading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
   let [prueba, setPrueba] = useState([]);
 
   //Extraigo de localstorage id selccionados
@@ -15,38 +15,64 @@ function Equipo({}) {
   conjuntoIds = JSON.parse(conjuntoIds);
   useEffect(() => {
     // Convierto los id en url dinámica
-    let url = conjuntoIds.map((x) => {
-      return ` https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${x}`;
-    });
-    console.log(url);
-    function obtenerApi() {
-      // mapeo los id y llamo a la api
-      axios.all(url.map((x) => axios.get(x))).then(
-        axios.spread(function (...res) {
-          // all requests are now complete
-          console.log(res);
-          if (res !== undefined) {
-            let respuesta = res.map((x) => x.data);
-            console.log(respuesta);
-            setPrueba(respuesta);
-            console.log(prueba);
-            setLoading(false);
-          }
-        })
-      );
-    }
+    if (conjuntoIds !== null) {
+      let url = conjuntoIds.map((x) => {
+        return ` https://secret-ocean-49799.herokuapp.com/https://superheroapi.com/api/2831945550360412/${x}`;
+      });
 
-    
-    obtenerApi();
-  }, []);
-    // Loading
-    if (isLoading) {
-      return (
-        <div class="text-center">
-          <h1>Loading...</h1>
-        </div>
-      );
+      function obtenerApi() {
+        // mapeo los id y llamo a la api
+        axios.all(url.map((x) => axios.get(x))).then(
+          axios.spread(function (...res) {
+            // all requests are now complete
+            console.log(res);
+            if (res !== undefined) {
+              let respuesta = res.map((x) => x.data);
+              console.log(respuesta);
+              setPrueba(respuesta);
+              console.log(prueba);
+              setLoading(false);
+            }
+          })
+        );
+      }
+
+      obtenerApi();
     }
+  }, []);
+
+  if (conjuntoIds === null) {
+    setTimeout(() => {
+      history.push("/busqueda");
+    }, 1000);
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-4"></div>
+          <div className="col-4 ">
+            <div class="alert  mb-2 alert-danger text-center " role="alert">
+              ¡Agregue personajes al equipo!
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Loading
+  if (isLoading) {
+    return (
+      <div class="text-center">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+  //Ocultar detalles
+  const ocultarDetalles = (e) => {
+    let detalles = document.querySelector(".Detalles");
+    detalles.classList.toggle("hidden");
+  };
+
   //Funcion para eliminar personaje del equipo
   const eliminarPersonaje = (e) => {
     e.preventDefault();
@@ -54,39 +80,93 @@ function Equipo({}) {
     let LocalId = JSON.parse(localStorage.getItem("id"));
     let ResEliminar = LocalId.filter((x) => x !== borrarPersonaje);
     localStorage.setItem("id", JSON.stringify(ResEliminar));
-     window.location.reload();
+    window.location.reload();
   };
 
   //Suma Powerstates
-  const SumaCombat = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.combat),0);
-  const SumaIntelligence = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.intelligence),0);
-  const SumaStrength = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.strength),0);
-  const SumaSpeed = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.speed),0);
-  const SumaDurability = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.durability),0);
-  const SumaPower = prueba.reduce((total, currentValue) => total = total + Number(currentValue.powerstats.power),0);
- //Peso y altura promedio del equipo
- const SumaPeso = prueba.reduce((total, currentValue) => total = total + (currentValue.appearance.weight[1]),0);
-console.log(SumaPeso)
+  const SumaCombat = prueba.reduce(
+    (total, currentValue) =>
+      (total = total + Number(currentValue.powerstats.combat)),
+    0
+  );
+  const SumaIntelligence = prueba.reduce(
+    (total, currentValue) =>
+      (total = total + Number(currentValue.powerstats.intelligence)),
+    0
+  );
+  const SumaStrength = prueba.reduce(
+    (total, currentValue) =>
+      (total = total + Number(currentValue.powerstats.strength)),
+    0
+  );
+  const SumaSpeed = prueba.reduce(
+    (total, currentValue) =>
+      (total = total + Number(currentValue.powerstats.speed)),
+    0
+  );
+  const SumaDurability = prueba.reduce(
+    (total, currentValue) =>
+      (total = total + Number(currentValue.powerstats.durability)),
+    0
+  );
+  const SumaPower = prueba.reduce(
+    (total, currentValue) =>
+      (total = total + Number(currentValue.powerstats.power)),
+    0
+  );
 
- 
+  //Peso y altura promedio del equipo
+  const SumaPeso =
+    parseInt(
+      prueba.reduce(
+        (total, currentValue) =>
+          (total = total + currentValue.appearance.weight[1]),
+        0
+      )
+    ) / prueba.length;
+  const SumaAltura =
+    parseInt(
+      prueba.reduce(
+        (total, currentValue) =>
+          (total = total + currentValue.appearance.height[1]),
+        0
+      )
+    ) / prueba.length;
+  console.log(SumaPeso, SumaAltura);
+
   return (
     <div className="container text-center">
-      <h1 className=" text-center">Mi Equipo</h1>
-      <div className="dot SumaPowerstats rounded">
-      <li>Total Combat: {SumaCombat}</li>
-      <li>Total Intelligence: {SumaIntelligence}</li>
-      <li>Total Strength: {SumaStrength}</li>
-      <li>Total Speed: {SumaSpeed}</li>
-      <li>Total Durability: {SumaDurability}</li>
-      <li>Total Power: {SumaPower}</li>
+      <h1 className=" text-center mt-2">Equipo</h1>
+      <hr />
+
+      <div className="dot SumaPowerstats rounded   ">
+        <h2 className="m-0 ">RESUMEN</h2>
+        <li>Total Combat: {SumaCombat}</li>
+        <li>Total Intelligence: {SumaIntelligence}</li>
+        <li>Total Strength: {SumaStrength}</li>
+        <li>Total Speed: {SumaSpeed}</li>
+        <li>Total Durability: {SumaDurability}</li>
+        <li>Total Power: {SumaPower}</li>
+        <li>
+          Altura Promedio:{" "}
+          {typeof SumaAltura === "string" ? "0" : Math.round(SumaAltura)}cm{" "}
+        </li>
+        <li>
+          Peso Promedio: {SumaPeso === NaN ? "0" : Math.round(SumaPeso)}kg{" "}
+        </li>
       </div>
-      <div className="row text-center ">
+      <div className="row d-flex justify-content-center ">
         {prueba.map((x) => (
           <React.Fragment key={x.id}>
-            <div className="col-4 text-center">
-              <p>{x.name}</p>
-              <img src={x.image.url} width="150" alt="" />
-              <div className="card-body">
+            <div className="card m-4 p-3">
+              <h4>{x.name}</h4>
+              <img
+                className="card-img-top"
+                src={x.image.url}
+                width="150"
+                alt=""
+              />
+              <div className="card-body ">
                 <div className="dot mt-3">
                   <h4 className="font-weight-bold">Powerstats</h4>
                   <li>Combat: {x.powerstats.combat}</li>
@@ -96,33 +176,34 @@ console.log(SumaPeso)
                   <li>Durability: {x.powerstats.durability}</li>
                   <li>Power: {x.powerstats.power}</li>
                 </div>
+
+                <div className="Detalles hidden dot " >
+                  <h4 className="font-weight-bold">Detalles</h4>
+                  <li>Full Name: {x.biography["full-name"]}</li>
+                  <li>Eye Color: {x.appearance["eye-color"]}</li>
+                  <li>Hair Color: {x.appearance["hair-color"]}</li>
+                  <li>Weight: {x.appearance.weight[1]}</li>
+                  <li>Height: {x.appearance.height[1]}</li>
+                  <li></li>
+                  <li>Base: {x.work.base}</li>
+                  <li>Aliases: {x.biography.aliases[0]}</li>
+                </div>
+
+                <button
+                  onClick={ocultarDetalles}
+                  className="btn mt-2 btn-primary"
+                >
+                  Detalles
+                </button>
+                <br />
+                <button
+                 id= {x.id}
+                  onClick={eliminarPersonaje}
+                  className="btn mt-2 btn-danger"
+                >
+                  Eliminar
+                </button>
               </div>
-              <Collapse in={open}>
-               
-              <div className="DetailsHidden dot ">
-                <h4 className="font-weight-bold">Detalles</h4>
-                <li>Full Name: {x.biography["full-name"]}</li>
-                <li>Eye Color: {x.appearance["eye-color"]}</li>
-                <li>Hair Color: {x.appearance["hair-color"]}</li>
-                <li>Weight: {x.appearance.weight[1]}</li>
-                <li>Height: {x.appearance.height[1]}</li>
-                <li></li>
-                <li>Base: {x.work.base}</li>
-                <li>Aliases: {x.biography.aliases[0]}</li>
-              </div>
-              </Collapse>
-             
-              <button
-                id={x.id}
-                onClick={() => setOpen(!open)}
-                aria-controls="example-collapse-text"
-                aria-expanded={open}
-                className="btn mt-2 btn-primary"
-              >
-                Detalles
-              </button>
-              <br />
-              <button id={x.id} onClick={eliminarPersonaje} className="btn mt-2 btn-danger">Eliminar</button>
             </div>
           </React.Fragment>
         ))}
