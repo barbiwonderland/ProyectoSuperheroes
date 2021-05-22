@@ -17,8 +17,10 @@ function ApiResults({}) {
   function agregarPersonaje(e) {
     e.preventDefault();
     let personajeId = e.target.id;
+    let team = [...idTeam, personajeId];
+    setIdTeam(team);
+    localStorage.setItem("id", JSON.stringify(team));
     let Localids = localStorage.getItem("id");
-    console.log(Localids)
      let IdLength =(JSON.parse(Localids).length)
      if (IdLength === 5){
        Setdisabled(true)
@@ -33,9 +35,6 @@ function ApiResults({}) {
    
 
     
-    let team = [...idTeam, personajeId];
-    setIdTeam(team);
-    localStorage.setItem("id", JSON.stringify(team));
   }
 
   // Llamado a la api Superhero
