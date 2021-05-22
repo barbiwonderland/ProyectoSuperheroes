@@ -81,7 +81,8 @@ function Equipo({}) {
     let LocalId = JSON.parse(localStorage.getItem("id"));
     let ResEliminar = LocalId.filter((x) => x !== borrarPersonaje);
     localStorage.setItem("id", JSON.stringify(ResEliminar));
-    window.location.reload();
+    window.location.href = window.location.href;
+    
   };
 
   //Suma Powerstates
