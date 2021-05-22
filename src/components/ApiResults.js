@@ -22,7 +22,7 @@ function ApiResults({}) {
     localStorage.setItem("id", JSON.stringify(team));
     let Localids = localStorage.getItem("id");
      let IdLength =(JSON.parse(Localids).length)
-     if (IdLength !== null && IdLength === 5){
+     if (IdLength !== null && IdLength === 6){
        Setdisabled(true)
        let mensaje = document.querySelector(".mensaje")
        mensaje.innerHTML="Equipo Completo!"
