@@ -19,17 +19,17 @@ function ApiResults({}) {
     let personajeId = e.target.id;
     let Localids = localStorage.getItem("id");
     console.log(Localids)
-    let IdLength =(JSON.parse(Localids).length)
-    if (IdLength === 5){
-      Setdisabled(true)
-      let mensaje = document.querySelector(".mensaje")
-      mensaje.innerHTML="Equipo Completo!"
-      mensaje.classList.add("bg-success","text-white", "rounded")
-      setTimeout(() => {
-        mensaje.remove();
-      }, 2000);
-      }
- 
+     let IdLength =(JSON.parse(Localids).length)
+     if (IdLength === 5){
+       Setdisabled(true)
+       let mensaje = document.querySelector(".mensaje")
+       mensaje.innerHTML="Equipo Completo!"
+       mensaje.classList.add("bg-success","text-white", "rounded")
+       setTimeout(() => {
+         mensaje.remove();
+       }, 2000);
+       }
+
    
 
     
