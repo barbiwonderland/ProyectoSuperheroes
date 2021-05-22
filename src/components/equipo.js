@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import { FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 function Equipo({}) {
   // History(para ir a una ruta anterior)
   const history = useHistory();
@@ -136,11 +137,23 @@ function Equipo({}) {
 
   return (
     <div className="container text-center">
-      <h1 className=" text-center mt-2">Equipo</h1>
-      <hr />
+      <div className="row">
+        <div className="col-4 my-auto">
+          <Link to="/busqueda">
+            <button className="  btn btn-primary">
+              <FaArrowLeft /> Volver
+            </button>
+          </Link>
+        </div>
+        <div className="col-md-4">
+          <h1 className=" text-center mt-2">Equipo</h1>
+          <hr />
+        </div>
+        <div className="col-md-4"></div>
+      </div>
 
       <div className="dot SumaPowerstats rounded   ">
-        <h2 className="m-0 ">RESUMEN</h2>
+        <h2 className="m-0 font-weight-normal ">RESUMEN</h2>
         <li>Total Combat: {SumaCombat}</li>
         <li>Total Intelligence: {SumaIntelligence}</li>
         <li>Total Strength: {SumaStrength}</li>
@@ -177,7 +190,7 @@ function Equipo({}) {
                   <li>Power: {x.powerstats.power}</li>
                 </div>
 
-                <div className="Detalles hidden dot " >
+                <div className="Detalles hidden dot ">
                   <h4 className="font-weight-bold">Detalles</h4>
                   <li>Full Name: {x.biography["full-name"]}</li>
                   <li>Eye Color: {x.appearance["eye-color"]}</li>
@@ -197,7 +210,7 @@ function Equipo({}) {
                 </button>
                 <br />
                 <button
-                 id= {x.id}
+                  id={x.id}
                   onClick={eliminarPersonaje}
                   className="btn mt-2 btn-danger"
                 >

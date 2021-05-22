@@ -7,30 +7,32 @@ import ResultadoBusqueda from "./ResultadoBusqueda";
 
 function ApiResults({}) {
   const { BaseUrl } = useContext(userEventContext);
-
   //Estados
   const [personaje, setPersonaje] = useState([]);
   const [idTeam, setIdTeam] = useState([]);
   const [Loading, setLoading] = useState(true);
   const [disabled, Setdisabled] = useState(false);
-
+ 
   //Funcion para agregar personaje al resultado
   function agregarPersonaje(e) {
     e.preventDefault();
     let personajeId = e.target.id;
     let Localids = localStorage.getItem("id");
-    if(Localids !== null){
-      setIdTeam(Localids)
+    console.log(Localids)
     let IdLength =(JSON.parse(Localids).length)
     if (IdLength === 5){
       Setdisabled(true)
-      alert("Equipo completo :D ")
-
-
+      let mensaje = document.querySelector(".mensaje")
+      mensaje.innerHTML="Equipo Completo!"
+      mensaje.classList.add("bg-success","text-white", "rounded")
+      setTimeout(() => {
+        mensaje.remove();
+      }, 2000);
       }
-  }
+ 
    
-    // setIdTeam(Localids);
+
+    
     let team = [...idTeam, personajeId];
     setIdTeam(team);
     localStorage.setItem("id", JSON.stringify(team));
@@ -55,6 +57,7 @@ function ApiResults({}) {
     fetchData();
   }, [BaseUrl]);
 
+
   // Loading
   if (Loading) {
     return (
@@ -71,6 +74,9 @@ function ApiResults({}) {
         <div className="row text-center">
           <div className="col-12  ">
             <SearchBar />
+            <div className="error  ">
+          
+          </div>
           </div>
         </div>
       </div>

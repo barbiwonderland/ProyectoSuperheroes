@@ -20,7 +20,6 @@ function SearchBar() {
               aria-label="Search"
               id="superValue"
             />
-            <div className="mensaje"></div>
             <button
               onClick={cambioPersonaje}
               className=" btn m btn-primary
@@ -35,6 +34,8 @@ function SearchBar() {
             </Link>
           </div>
         </div>
+        <div className="mensaje p-2 mb-2 mx-auto d-inline-block "></div>
+    
       </div>
     </React.Fragment>
   );

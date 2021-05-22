@@ -3,8 +3,30 @@ import "./styles/form.css";
 import { setUserSession } from "../common";
 import axios from "axios";
 import { Formik } from "formik";
+import {url} from "../PostUrl"
 
 function Login() {
+  //Estados
+  const [form,setForm]=useState({
+    "usuario" :"Jose", 
+  "password": "Perez" 
+  
+   })
+// function prueba(){
+//   axios.post(url, {
+//     Email: 'Finn@gmail.com',
+//     Password: 'Williams'
+//   })
+//   .then((response) => {
+//     console.log(response);
+//   }, (error) => {
+//     console.log(error);
+//   });
+
+// }
+
+
+// prueba();
   return (
     <React.Fragment>
       <Formik
@@ -18,10 +40,20 @@ function Login() {
           ) {
             errors.email = "Email incorrecto";
           }
+
+          if (!values.password) {
+            errors.password = "Escriba una contraseña";
+          } else if (
+           /^[a-z0-9_]{3,6}$/i.test(values.password)
+          ) {
+            errors.password = "La contraseña debe tener entre 3 y 6 caracteres mínimo";
+          }
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
+         console.log( values)
+  
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400);
@@ -35,7 +67,7 @@ function Login() {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          /* and other goodies */
+         
         }) => (
           <div className="mt-5">
             <div className="wrapper fadeInDown   ">
@@ -44,7 +76,7 @@ function Login() {
                   <h5>SuperHero</h5>
                 </div>
 
-                <form className="text-center"  onSubmit={handleSubmit}>
+                <form className="text-center" onSubmit={handleSubmit}>
                   <input
                     type="email"
                     name="email"
@@ -55,7 +87,9 @@ function Login() {
                     className="fadeIn second"
                     placeholder="Usuario"
                   />
-                  {errors.email && touched.email && errors.email}
+                  <div className="errores">
+                    {errors.email && touched.email && errors.email}
+                  </div>
                   <input
                     type="password"
                     name="password"
@@ -66,18 +100,20 @@ function Login() {
                     className="fadeIn third"
                     placeholder="Contraseña"
                   />
-                  {errors.password && touched.password && errors.password}
+                  <div className="errores">
+                    {errors.password && touched.password && errors.password}
+                  </div>
 
                   <input
                     type="submit"
                     className="fadeIn fourth"
                     value="Log In"
                     disabled={isSubmitting}
+              
                   />
                 </form>
 
                 <div id="formFooter">
-                  {/* <a className="underlineHover" href="#">Forgot Password?</a> */}
                 </div>
               </div>
             </div>
@@ -87,5 +123,4 @@ function Login() {
     </React.Fragment>
   );
 }
-
 export default Login;

@@ -257,3 +257,10 @@
   #icon {
     width:60%;
   }
+
+   /* Formik */
+
+   .errores{
+     color:red;
+     text-align: center;
+   }
