@@ -44,7 +44,7 @@ function Equipo({}) {
 
   if (conjuntoIds === null) {
     setTimeout(() => {
-      history.push("/busqueda");
+      history.push("/");
     }, 1000);
     return (
       <div className="container">
@@ -139,7 +139,7 @@ function Equipo({}) {
     <div className="container text-center">
       <div className="row">
         <div className="col-4 my-auto">
-          <Link to="/busqueda">
+          <Link to="/">
             <button className="  btn btn-primary">
               <FaArrowLeft /> Volver
             </button>

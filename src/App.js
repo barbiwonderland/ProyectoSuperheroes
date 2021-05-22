@@ -13,8 +13,8 @@ function App() {
       <Switch>
         <UserProvider>
           <EventProvider>
-            <Route exact path="/" component={Login}></Route>
-            <Route exact path="/busqueda" component={ApiResults}></Route>
+            <Route exact path="/login" component={Login}></Route>
+            <Route exact path="/" component={ApiResults}></Route>
             <Route exact path="/equipo" component={Equipo}></Route>
           </EventProvider>
         </UserProvider>
