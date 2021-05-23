@@ -63,7 +63,7 @@ function Equipo({}) {
   // Loading
   if (isLoading) {
     return (
-      <div class="text-center">
+      <div className="text-center">
         <h1>Loading...</h1>
       </div>
     );
