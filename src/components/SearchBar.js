@@ -39,7 +39,7 @@ function SearchBar() {
             </Link>
           </div>
         </div>
-        <div className="mensaje p-2 mb-2 mx-auto d-inline-block "></div>
+        <div className="mensaje  d-inline-block "></div>
     
       </div>
     </React.Fragment>

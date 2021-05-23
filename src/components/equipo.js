@@ -42,11 +42,10 @@ function Equipo({}) {
     }
   }, []);
 
-   if (conjuntoIds === null) {
-     setTimeout(() => {
-       history.push("/");
-     }, 1000);
-  
+  if (conjuntoIds === null) {
+    setTimeout(() => {
+      history.push("/");
+    }, 1000);
   }
 
   // Loading
@@ -59,7 +58,6 @@ function Equipo({}) {
   }
   //Ocultar detalles
   const ocultarDetalles = (e) => {
-    e.preventDefault();
     let detalles = document.querySelector(".Detalles");
     detalles.classList.toggle("hidden");
   };
@@ -175,8 +173,8 @@ function Equipo({}) {
       </div>
       <div className="row d-flex justify-content-center ">
         {prueba.map((x) => (
-          <React.Fragment key={x.id}>
-            <div className="card m-4 p-3">
+          <React.Fragment>
+            <div className="card m-4 p-3" key={x.id}>
               <h4>{x.name}</h4>
               <img
                 className="card-img-top"
@@ -195,7 +193,7 @@ function Equipo({}) {
                   <li>Power: {x.powerstats.power}</li>
                 </div>
 
-                <div className="Detalles hidden dot ">
+                <div className="Detalles dot hidden " id={x.id}>
                   <h4 className="font-weight-bold">Detalles</h4>
                   <li>Full Name: {x.biography["full-name"]}</li>
                   <li>Eye Color: {x.appearance["eye-color"]}</li>
@@ -208,7 +206,8 @@ function Equipo({}) {
                 </div>
 
                 <button
-                  onClick={ocultarDetalles}
+                  id={x.id}
+                  onClick={(e) => ocultarDetalles(e.target.id)}
                   className="btn mt-2 btn-primary"
                 >
                   Detalles
