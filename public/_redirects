@@ -1,3 +1,5 @@
+ /app/*  /app/index.html  200!
+ 
 [[redirects]]
   from = "/"
   to = "/equipo"
