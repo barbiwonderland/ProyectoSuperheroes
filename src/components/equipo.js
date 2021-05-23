@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 function Equipo({}) {
   // History(para ir a una ruta anterior)
@@ -42,22 +42,11 @@ function Equipo({}) {
     }
   }, []);
 
-  if (conjuntoIds === null) {
-    setTimeout(() => {
-      history.push("/");
-    }, 1000);
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-4"></div>
-          <div className="col-4 ">
-            <div class="alert  mb-2 alert-danger text-center " role="alert">
-              ¡Agregue personajes al equipo!
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+   if (conjuntoIds === null) {
+     setTimeout(() => {
+       history.push("/");
+     }, 1000);
+  
   }
 
   // Loading
@@ -70,9 +59,16 @@ function Equipo({}) {
   }
   //Ocultar detalles
   const ocultarDetalles = (e) => {
+    e.preventDefault();
     let detalles = document.querySelector(".Detalles");
     detalles.classList.toggle("hidden");
   };
+
+  // Funcion para eliminar todo el equipo de personajes
+  function eliminarEquipo() {
+    localStorage.clear();
+    window.location.reload();
+  }
 
   //Funcion para eliminar personaje del equipo
   const eliminarPersonaje = (e) => {
@@ -81,8 +77,7 @@ function Equipo({}) {
     let LocalId = JSON.parse(localStorage.getItem("id"));
     let ResEliminar = LocalId.filter((x) => x !== borrarPersonaje);
     localStorage.setItem("id", JSON.stringify(ResEliminar));
-    window.location.href = window.location.href;
-    
+    window.location.reload();
   };
 
   //Suma Powerstates
@@ -138,22 +133,31 @@ function Equipo({}) {
 
   return (
     <div className="container text-center">
-      <div className="row">
-        <div className="col-4 my-auto">
+      <div className="row mt-3">
+        <div className="col-md-4 my-auto ">
           <Link to="/">
-            <button className="  btn btn-primary">
+            <button className=" mt-3 mt-md-0  btn btn-primary">
               <FaArrowLeft /> Volver
             </button>
           </Link>
         </div>
-        <div className="col-md-4">
-          <h1 className=" text-center mt-2">Equipo</h1>
-          <hr />
-        </div>
         <div className="col-md-4"></div>
+
+        <div className="col-md-4  my-auto">
+          <button
+            onClick={eliminarEquipo}
+            className="btn btn-danger my-2 rounded "
+          >
+            <FaTrash /> Equipo
+          </button>
+        </div>
+        <div className="col-12">
+          <hr />
+          <h1>Equipo</h1>
+        </div>
       </div>
 
-      <div className="dot SumaPowerstats rounded   ">
+      <div className=" py-md-2 dot SumaPowerstats rounded   ">
         <h2 className="m-0 font-weight-normal ">RESUMEN</h2>
         <li>Total Combat: {SumaCombat}</li>
         <li>Total Intelligence: {SumaIntelligence}</li>

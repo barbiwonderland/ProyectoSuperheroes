@@ -20,39 +20,55 @@ function ApiResults({}) {
     e.preventDefault();
     //Tomo el id del personaje seleccionado
     let personajeId = e.target.id;
-    // Creo un arreglo del estado + el ultimo personaje
-    let team = [...idTeam, personajeId];
-    // Actualizo el estado
-    setIdTeam(team);
-    // Guardo el estado en LS
-    localStorage.setItem("id", JSON.stringify(idTeam));
-    if (localStorage.getItem("id") !== "[]") {
-      let Localids = localStorage.getItem("id");
-      let IdLength = JSON.parse(Localids).length;
-      console.log(IdLength);
-      if (IdLength !== null && IdLength === 6) {
-        Setdisabled(true);
-        let mensaje = document.querySelector(".mensaje");
-        mensaje.innerHTML = "Equipo Completo!";
-        mensaje.classList.add("bg-success", "text-white", "rounded");
-        setTimeout(() => {
-          mensaje.remove();
-        }, 2000);
-      }
-    }
+    // Condiciones para mostrar mensajes
+    if (localStorage.getItem("id")) {
+      if (localStorage.getItem("id") !== "[]") {
+        let Localids = localStorage.getItem("id");
+          // // Compruebo que no se vuelva a agregar un personaje igual
+          // if (Localids.includes(personajeId)) {
+          //   let repetido = document.querySelector(".repetido");
+          //   repetido.innerHTML = "Personaje ya seleccionado";
+          //   repetido.classList.add("bg-danger", "text-white", "rounded");
+          //   setTimeout(() => {
+          //     repetido.remove();
+          //   }, 4000);
+            
+         // }
+          if (JSON.parse(Localids).length !== null && JSON.parse(Localids).length === 5) {
+            Setdisabled(true);
+            let mensaje = document.querySelector(".mensaje");
+            mensaje.innerHTML = "Equipo Completo!";
+            mensaje.classList.add("bg-success", "text-white", "rounded");
+            setTimeout(() => {
+              mensaje.remove();
+            }, 2000);
+          }
+       
+      }}
+       
+      
+      // Creo un arreglo del estado + el ultimo personaje
+      let team = [...idTeam, personajeId];
+      // Actualizo el estado
+      setIdTeam(team);
+      // Guardo el estado en LS
+      localStorage.setItem("id", JSON.stringify(idTeam));
+    
   }
 
-  
   useEffect(() => {
     // Compruebo cuando renderizo si puedo agregar mas personajes
-    if (localStorage.getItem("id") !== "[]") {
-      let Localids = localStorage.getItem("id");
-      let IdLength = JSON.parse(Localids).length;
-      console.log(IdLength);
-      if (IdLength !== null && IdLength === 6) {
-        Setdisabled(true);
+    if (localStorage.getItem("id")) {
+      if (localStorage.getItem("id") !== "[]") {
+        let Localids = localStorage.getItem("id");
+        let IdLength = JSON.parse(Localids).length;
+        console.log(IdLength);
+        if (IdLength !== null && IdLength === 6) {
+          Setdisabled(true);
+        }
       }
     }
+
     // Llamado a la api Superhero
     const fetchData = () => {
       axios
@@ -87,7 +103,7 @@ function ApiResults({}) {
         <div className="row text-center">
           <div className="col-12  ">
             <SearchBar />
-            <div className="error  "></div>
+            <div className="error "></div>
           </div>
         </div>
       </div>
