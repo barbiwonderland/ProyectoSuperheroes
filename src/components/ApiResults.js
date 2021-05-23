@@ -4,41 +4,56 @@ import userEventContext from "../userEventContext";
 import SearchBar from "./SearchBar";
 import ResultadoBusqueda from "./ResultadoBusqueda";
 
-
 function ApiResults({}) {
+  //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
+  const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
+  console.log(LocalGet);
   const { BaseUrl } = useContext(userEventContext);
   //Estados
   const [personaje, setPersonaje] = useState([]);
-  const [idTeam, setIdTeam] = useState([]);
+  //Agrego al estado lo que estaaba en LS
+  const [idTeam, setIdTeam] = useState(LocalGet);
   const [Loading, setLoading] = useState(true);
   const [disabled, Setdisabled] = useState(false);
- 
   //Funcion para agregar personaje al resultado
   function agregarPersonaje(e) {
     e.preventDefault();
+    //Tomo el id del personaje seleccionado
     let personajeId = e.target.id;
+    // Creo un arreglo del estado + el ultimo personaje
     let team = [...idTeam, personajeId];
+    // Actualizo el estado
     setIdTeam(team);
-    localStorage.setItem("id", JSON.stringify(team));
-    let Localids = localStorage.getItem("id");
-     let IdLength =(JSON.parse(Localids).length)
-     if (IdLength !== null && IdLength === 6){
-       Setdisabled(true)
-       let mensaje = document.querySelector(".mensaje")
-       mensaje.innerHTML="Equipo Completo!"
-       mensaje.classList.add("bg-success","text-white", "rounded")
-       setTimeout(() => {
-         mensaje.remove();
-       }, 2000);
-       }
-
-   
-
-    
+    // Guardo el estado en LS
+    localStorage.setItem("id", JSON.stringify(idTeam));
+    if (localStorage.getItem("id") !== "[]") {
+      let Localids = localStorage.getItem("id");
+      let IdLength = JSON.parse(Localids).length;
+      console.log(IdLength);
+      if (IdLength !== null && IdLength === 6) {
+        Setdisabled(true);
+        let mensaje = document.querySelector(".mensaje");
+        mensaje.innerHTML = "Equipo Completo!";
+        mensaje.classList.add("bg-success", "text-white", "rounded");
+        setTimeout(() => {
+          mensaje.remove();
+        }, 2000);
+      }
+    }
   }
 
-  // Llamado a la api Superhero
+  
   useEffect(() => {
+    // Compruebo cuando renderizo si puedo agregar mas personajes
+    if (localStorage.getItem("id") !== "[]") {
+      let Localids = localStorage.getItem("id");
+      let IdLength = JSON.parse(Localids).length;
+      console.log(IdLength);
+      if (IdLength !== null && IdLength === 6) {
+        Setdisabled(true);
+      }
+    }
+    // Llamado a la api Superhero
     const fetchData = () => {
       axios
         .get(BaseUrl)
@@ -56,7 +71,6 @@ function ApiResults({}) {
     fetchData();
   }, [BaseUrl]);
 
-
   // Loading
   if (Loading) {
     return (
@@ -73,9 +87,7 @@ function ApiResults({}) {
         <div className="row text-center">
           <div className="col-12  ">
             <SearchBar />
-            <div className="error  ">
-          
-          </div>
+            <div className="error  "></div>
           </div>
         </div>
       </div>
@@ -91,7 +103,7 @@ function ApiResults({}) {
                 return (
                   <div className="col-md-4 col-sm-12" key={person.id}>
                     <ResultadoBusqueda
-                    disabled={disabled}
+                      disabled={disabled}
                       key={person.id}
                       personaje={person}
                       agregarPersonaje={agregarPersonaje}
