@@ -57,10 +57,13 @@ function Equipo({}) {
     );
   }
   //Ocultar detalles
-  const ocultarDetalles = () => {
-    let detalles = document.querySelector(".Detalles");
-    console.log(detalles)
-    detalles.classList.toggle("hidden");
+  const ocultarDetalles = (x) => {
+    let r = document.querySelectorAll(".Detalles");
+    r.forEach((m) => {
+      if (m.id === x) {
+        m.classList.toggle("hidden");
+      }
+    });
   };
 
   // Funcion para eliminar todo el equipo de personajes
@@ -174,8 +177,8 @@ function Equipo({}) {
       </div>
       <div className="row d-flex justify-content-center ">
         {prueba.map((x) => (
-          <React.Fragment >
-            <div className="card m-4 p-3" key= {x.id} >
+          <React.Fragment key={x.id}>
+            <div className="card m-4 p-3">
               <h4>{x.name}</h4>
               <img
                 className="card-img-top"
@@ -194,19 +197,20 @@ function Equipo({}) {
                   <li>Power: {x.powerstats.power}</li>
                 </div>
 
-                <div className="Detalles dot hidden  " >
+                <div className="Detalles dot hidden " id={x.id}>
                   <h4 className="font-weight-bold">Detalles</h4>
-                  <li key= {x.id}>Full Name: {x.biography["full-name"]}</li>
-                  <li key= {x.id}>Eye Color: {x.appearance["eye-color"]}</li>
-                  <li key= {x.id}>Hair Color: {x.appearance["hair-color"]}</li>
-                  <li key= {x.id}>Weight: {x.appearance.weight[1]}</li>
-                  <li key= {x.id}>Height: {x.appearance.height[1]}</li>
-                  <li key= {x.id}>Base: {x.work.base}</li>
-                  <li key= {x.id}>Aliases: {x.biography.aliases[0]}</li>
+                  <li>Full Name: {x.biography["full-name"]}</li>
+                  <li>Eye Color: {x.appearance["eye-color"]}</li>
+                  <li>Hair Color: {x.appearance["hair-color"]}</li>
+                  <li>Weight: {x.appearance.weight[1]}</li>
+                  <li>Height: {x.appearance.height[1]}</li>
+                  <li>Base: {x.work.base}</li>
+                  <li>Aliases: {x.biography.aliases[0]}</li>
                 </div>
 
                 <button
-                  onClick={ocultarDetalles}
+                  id={x.id}
+                  onClick={() => ocultarDetalles(x.id)}
                   className="btn mt-2 btn-primary"
                 >
                   Detalles

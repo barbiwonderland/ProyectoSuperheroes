@@ -3,30 +3,45 @@ import "./styles/form.css";
 import { setUserSession } from "../common";
 import axios from "axios";
 import { Formik } from "formik";
-import {url} from "../PostUrl"
+import { url } from "../PostUrl";
 
 function Login() {
   //Estados
-  const [form,setForm]=useState({
-    "usuario" :"Jose", 
-  "password": "Perez" 
-  
-   })
-// function prueba(){
-//   axios.post(url, {
-//     Email: 'Finn@gmail.com',
-//     Password: 'Williams'
-//   })
-//   .then((response) => {
-//     console.log(response);
-//   }, (error) => {
-//     console.log(error);
-//   });
-
-// }
-
-
-// prueba();
+  const [form, setForm] = useState({
+    usuario: "Jose",
+    password: "Perez",
+  });
+  // function prueba() {
+  //   axios
+  //     .post(url, {
+  //       Email: "challenge@alkemy.org",
+  //       Password: "react",
+  //     })
+  //     .then(
+  //       (response) => {
+  //         console.log(response);
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+  // function prueba2() {
+  //   fetch(url, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       Email: "prueba@gmail.com",
+  //       Password: "react123",
+  //     }),
+  //     headers: {
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => console.log(json));
+  // }
+  // prueba();
+  // prueba2();
   return (
     <React.Fragment>
       <Formik
@@ -43,17 +58,16 @@ function Login() {
 
           if (!values.password) {
             errors.password = "Escriba una contraseña";
-          } else if (
-           /^[a-z0-9_]{3,6}$/i.test(values.password)
-          ) {
-            errors.password = "La contraseña debe tener entre 3 y 6 caracteres mínimo";
+          } else if (/^[a-z0-9_]{3,6}$/i.test(values.password)) {
+            errors.password =
+              "La contraseña debe tener entre 3 y 6 caracteres mínimo";
           }
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-         console.log( values)
-  
+            console.log(values);
+
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400);
@@ -67,7 +81,6 @@ function Login() {
           handleBlur,
           handleSubmit,
           isSubmitting,
-         
         }) => (
           <div className="mt-5">
             <div className="wrapper fadeInDown   ">
@@ -109,12 +122,10 @@ function Login() {
                     className="fadeIn fourth"
                     value="Log In"
                     disabled={isSubmitting}
-              
                   />
                 </form>
 
-                <div id="formFooter">
-                </div>
+                <div id="formFooter"></div>
               </div>
             </div>
           </div>

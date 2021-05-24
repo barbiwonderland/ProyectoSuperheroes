@@ -3,13 +3,14 @@ import axios from "axios";
 import userEventContext from "../userEventContext";
 import SearchBar from "./SearchBar";
 import ResultadoBusqueda from "./ResultadoBusqueda";
-//Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
 
 function ApiResults({}) {
+  //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
+
   const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
   const { BaseUrl } = useContext(userEventContext);
-  //Estados
   const [personaje, setPersonaje] = useState([]);
+  //Estados
   //Agrego al estado lo que estaaba en LS
   const [idTeam, setIdTeam] = useState(LocalGet);
   const [Loading, setLoading] = useState(true);
@@ -99,7 +100,7 @@ function ApiResults({}) {
       if (localStorage.getItem("id") !== "[]") {
         let Localids = localStorage.getItem("id");
         let IdLength = JSON.parse(Localids).length;
-        console.log(IdLength);
+        //console.log(IdLength);
         if (IdLength !== null && IdLength === 6) {
           Setdisabled(true);
         }
@@ -114,11 +115,7 @@ function ApiResults({}) {
           console.log(res);
           setPersonaje(res.data.results);
           setLoading(false);
-        })
-
-        .catch(() => {
-          console.log("error");
-          return;
+          
         });
     };
     fetchData();
@@ -132,7 +129,7 @@ function ApiResults({}) {
       </div>
     );
   }
-
+ 
   // Condición para mostrar o no el resultado de la busqueda
   if (personaje === undefined) {
     return (
@@ -140,7 +137,7 @@ function ApiResults({}) {
         <div className="row text-center">
           <div className="col-12  ">
             <SearchBar />
-            <div className="error "></div>
+            <div className="error"></div>
           </div>
         </div>
       </div>
