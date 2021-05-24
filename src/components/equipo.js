@@ -159,20 +159,17 @@ function Equipo({}) {
 
   //Peso y altura promedio del equipo
   const SumaPeso =
-    parseInt(
-      prueba.reduce(
-        (total, currentValue) =>
-          (total = total + currentValue.appearance.weight[1]),
-        0
-      )
+    prueba.reduce(
+      (total, currentValue) =>
+        (total = total + parseInt(currentValue.appearance.weight[1])),
+      0
     ) / prueba.length;
+
   const SumaAltura =
-    parseInt(
-      prueba.reduce(
-        (total, currentValue) =>
-          (total = total + currentValue.appearance.height[1]),
-        0
-      )
+    prueba.reduce(
+      (total, currentValue) =>
+        (total = total + parseInt(currentValue.appearance.height[1])),
+      0
     ) / prueba.length;
   console.log(SumaPeso, SumaAltura);
 
