@@ -115,7 +115,7 @@ function ApiResults({}) {
           console.log(res);
           setPersonaje(res.data.results);
           setLoading(false);
-          
+       
         });
     };
     fetchData();

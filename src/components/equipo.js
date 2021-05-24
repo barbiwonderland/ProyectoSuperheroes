@@ -169,10 +169,10 @@ function Equipo({}) {
         <li>Total Power: {SumaPower}</li>
         <li>
           Altura Promedio:{" "}
-          {typeof SumaAltura === "string" ? "0" : Math.round(SumaAltura)}cm{" "}
+          { isNaN(SumaAltura)  ? "0" : Math.round(SumaAltura)}cm{" "}
         </li>
         <li>
-          Peso Promedio: {SumaPeso === NaN ? "0" : Math.round(SumaPeso)}kg{" "}
+          Peso Promedio: { isNaN(SumaPeso) ? "0" : Math.round(SumaPeso)}kg{" "}
         </li>
       </div>
       <div className="row d-flex justify-content-center ">
