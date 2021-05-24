@@ -85,32 +85,68 @@ function Equipo({}) {
   //Suma Powerstates
   const SumaCombat = prueba.reduce(
     (total, currentValue) =>
-      (total = total + Number(currentValue.powerstats.combat)),
+      (total =
+        total +
+        Number(
+          isNaN(currentValue.powerstats.combat)
+            ? ""
+            : currentValue.powerstats.combat
+        )),
     0
   );
   const SumaIntelligence = prueba.reduce(
     (total, currentValue) =>
-      (total = total + Number(currentValue.powerstats.intelligence)),
+      (total =
+        total +
+        Number(
+          isNaN(currentValue.powerstats.intelligence)
+            ? ""
+            : currentValue.powerstats.intelligence
+        )),
     0
   );
   const SumaStrength = prueba.reduce(
     (total, currentValue) =>
-      (total = total + Number(currentValue.powerstats.strength)),
+      (total =
+        total +
+        Number(
+          isNaN(currentValue.powerstats.strength)
+            ? ""
+            : currentValue.powerstats.strength
+        )),
     0
   );
   const SumaSpeed = prueba.reduce(
     (total, currentValue) =>
-      (total = total + Number(currentValue.powerstats.speed)),
+      (total =
+        total +
+        Number(
+          isNaN(currentValue.powerstats.speed)
+            ? ""
+            : currentValue.powerstats.speed
+        )),
     0
   );
   const SumaDurability = prueba.reduce(
     (total, currentValue) =>
-      (total = total + Number(currentValue.powerstats.durability)),
+      (total =
+        total +
+        Number(
+          isNaN(currentValue.powerstats.durability)
+            ? ""
+            : currentValue.powerstats.durability
+        )),
     0
   );
   const SumaPower = prueba.reduce(
     (total, currentValue) =>
-      (total = total + Number(currentValue.powerstats.power)),
+      (total =
+        total +
+        Number(
+          isNaN(currentValue.powerstats.power)
+            ? ""
+            : currentValue.powerstats.power
+        )),
     0
   );
 
@@ -167,11 +203,10 @@ function Equipo({}) {
         <li>Total Durability: {SumaDurability}</li>
         <li>Total Power: {SumaPower}</li>
         <li>
-          Altura Promedio:{" "}
-          { isNaN(SumaAltura)  ? "0" : Math.round(SumaAltura)}cm{" "}
+          Altura Promedio: {isNaN(SumaAltura) ? "0" : Math.round(SumaAltura)}cm{" "}
         </li>
         <li>
-          Peso Promedio: { isNaN(SumaPeso) ? "0" : Math.round(SumaPeso)}kg{" "}
+          Peso Promedio: {isNaN(SumaPeso) ? "0" : Math.round(SumaPeso)}kg{" "}
         </li>
       </div>
       <div className="row d-flex justify-content-center ">
