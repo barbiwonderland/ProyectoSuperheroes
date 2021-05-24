@@ -8,12 +8,12 @@ function ApiResults({}) {
   //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
 
   const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
-  const { BaseUrl } = useContext(userEventContext);
+  const { BusquedaUrl, } = useContext(userEventContext);
   const [personaje, setPersonaje] = useState([]);
   //Estados
   //Agrego al estado lo que estaaba en LS
   const [idTeam, setIdTeam] = useState(LocalGet);
-  const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState(false);
   const [disabled, Setdisabled] = useState(false);
   //Funcion para agregar personaje al resultado
   function agregarPersonaje(e) {
@@ -107,19 +107,43 @@ function ApiResults({}) {
       }
     }
 
+
+  }, []);
+
     // Llamado a la api Superhero
     const fetchData = () => {
+      setLoading(true)
       axios
-        .get(BaseUrl)
+        .get(BusquedaUrl)
         .then((res) => {
           console.log(res);
           setPersonaje(res.data.results);
           setLoading(false);
-       
+          if(res.data.response === "error"){
+            let error = document.querySelector(".error")
+            let msg= document.createElement("p")
+            msg.innerHTML="Personaje no encontrado"
+            msg.classList.add(
+            "bg-danger",
+            "text-white",
+            "rounded",
+            "p-2",
+            "mb-2",
+            "mx-auto",
+            "text-center"
+            )
+            error.appendChild(msg)
+             setTimeout(() => {
+              msg.remove()
+             }, 1000);
+           
+          }
+      
         });
+    
+        
+
     };
-    fetchData();
-  }, [BaseUrl]);
 
   // Loading
   if (Loading) {
@@ -135,9 +159,10 @@ function ApiResults({}) {
     return (
       <div className="container">
         <div className="row text-center">
-          <div className="col-12  ">
-            <SearchBar />
-            <div className="error"></div>
+          <div className="col-12 text-center ">
+            <SearchBar 
+            fetchData={fetchData}
+            />
           </div>
         </div>
       </div>
@@ -146,7 +171,9 @@ function ApiResults({}) {
     return (
       <React.Fragment>
         <div className="container text-center ">
-          <SearchBar />
+          <SearchBar
+          fetchData={fetchData}
+          />
           <div className="container">
             <div className="row  ">
               {personaje.map((person) => {

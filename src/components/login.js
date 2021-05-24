@@ -1,6 +1,5 @@
 import React, { Component, setState, useState } from "react";
 import "./styles/form.css";
-import { setUserSession } from "../common";
 import axios from "axios";
 import { Formik } from "formik";
 import { url } from "../PostUrl";
@@ -26,22 +25,22 @@ function Login() {
   //       }
   //     );
   // }
-  // function prueba2() {
-  //   fetch(url, {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       Email: "prueba@gmail.com",
-  //       Password: "react123",
-  //     }),
-  //     headers: {
-  //       "Content-type": "application/json; charset=UTF-8",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((json) => console.log(json));
-  // }
-  // prueba();
-  // prueba2();
+  //  function prueba2() {
+  //    fetch(url, {
+  //      method: "POST",
+  //      body: JSON.stringify({
+  //        Email: "prueba@gmail.com",
+  //        Password: "react123",
+  //      }),
+  //      headers: {
+  //        "Content-Type": "application/x-www-form-urlencoded" 
+  //      },
+  //    })
+  //      .then((response) => response.json())
+  //      .then((json) => console.log(json));
+  //  }
+ 
+  //  prueba2();
   return (
     <React.Fragment>
       <Formik

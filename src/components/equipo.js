@@ -159,8 +159,7 @@ function Equipo({}) {
         </div>
       </div>
 
-      <div className=" py-md-2 dot SumaPowerstats rounded">
-        <h2 className="m-0 font-weight-normal ">RESUMEN</h2>
+      <div className=" py-md-1 dot SumaPowerstats rounded">
         <li>Total Combat: {SumaCombat}</li>
         <li>Total Intelligence: {SumaIntelligence}</li>
         <li>Total Strength: {SumaStrength}</li>
