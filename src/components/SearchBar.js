@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import userEventContext from "../userEventContext";
 import { Link } from "react-router-dom";
 function SearchBar({ fetchData }) {
-  const { cambioPersonaje, BusquedaUrl } = useContext(userEventContext);
+  const { cambioPersonaje, BusquedaUrl } = useContext(userEventContext)
+  
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       fetchData();

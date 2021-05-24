@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
+  const [value, setValue] = React.useState(null);
 
   // Desestructuración del map personaje
   const { name, image, biography, id } = personaje;
@@ -13,15 +15,14 @@ function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
         disabled={disabled}
         id={id}
         personaje={personaje}
-        onClick={(e)=>agregarPersonaje(e)}
+        onClick={(e) => agregarPersonaje(e)}
         className="btn btn-success mt-3 btnAgregar"
         value={biography.aligment}
       >
         Agregar
-      </button>      
+      </button>
       <br />
       <div className="repetido p-2 m-2 mx-auto d-inline-block"></div>
-
     </React.Fragment>
   );
 }
