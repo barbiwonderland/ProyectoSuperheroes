@@ -3,11 +3,10 @@ import axios from "axios";
 import userEventContext from "../userEventContext";
 import SearchBar from "./SearchBar";
 import ResultadoBusqueda from "./ResultadoBusqueda";
+//Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
 
 function ApiResults({}) {
-  //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
   const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
-  console.log(LocalGet);
   const { BaseUrl } = useContext(userEventContext);
   //Estados
   const [personaje, setPersonaje] = useState([]);
@@ -24,43 +23,74 @@ function ApiResults({}) {
     if (localStorage.getItem("id")) {
       if (localStorage.getItem("id") !== "[]") {
         let Localids = localStorage.getItem("id");
-        //    // Compruebo que no se vuelva a agregar un personaje igual
-        // if (Localids.includes(personajeId)) {
-        //   let repetido = document.querySelector(".repetido");
-        //   repetido.innerHTML = "Personaje ya seleccionado";
-        //   repetido.classList.add("bg-danger", "text-white", "rounded");
-        //   setTimeout(() => {
-        //     repetido.remove();
-        //   }, 4000);
-        //           }
-          if (JSON.parse(Localids).length !== null && JSON.parse(Localids).length === 5) {
-            Setdisabled(true);
-            let mensaje = document.querySelector(".mensaje");
-            let msg = document.createElement("p")
-            msg.innerHTML = "Equipo Completo";
-            msg.classList.add("bg-success", "text-white", "rounded", "p-2", "mb-2", "mx-auto");
-            mensaje.appendChild(msg)
-                  setTimeout(() => {
-              msg.remove();
-            }, 4000);
-          }
-       
-      }}
-      // Creo un arreglo del estado + el ultimo personaje
-      let team = [...idTeam, personajeId];
-      // Actualizo el estado
-      setIdTeam(team);
-      // Guardo el estado en LS
-      localStorage.setItem("id", JSON.stringify(idTeam));
-      let mensaje = document.querySelector(".mensaje");
-      let msg = document.createElement("p")
-      msg.innerHTML = "Personaje agregado";
-      msg.classList.add("bg-info", "text-white", "rounded", "p-2", "mb-2", "mx-auto");
-      mensaje.appendChild(msg)
-      setTimeout(() => {
-        msg.remove();
-      }, 800);
-    
+        // Compruebo que no se vuelva a agregar un personaje igual
+        if (Localids.includes(personajeId)) {
+          let repetido = document.querySelector(".mensaje");
+          let error = document.createElement("p");
+          error.innerHTML = "Personaje ya seleccionado";
+          error.classList.add(
+            "bg-danger",
+            "text-white",
+            "rounded",
+            "p-2",
+            "mb-2",
+            "mx-auto"
+          );
+          repetido.appendChild(error);
+          setTimeout(() => {
+            error.remove();
+          }, 4000);
+          return;
+        }
+        // Condición para que no se agreguen mas de 6 personajes
+        if (
+          JSON.parse(Localids).length !== null &&
+          JSON.parse(Localids).length === 5
+        ) {
+          Setdisabled(true);
+          let mensaje = document.querySelector(".mensaje");
+          let msg = document.createElement("p");
+          msg.innerHTML = "Equipo Completo";
+          msg.classList.add(
+            "bg-success",
+            "text-white",
+            "rounded",
+            "p-2",
+            "mb-2",
+            "mx-auto"
+          );
+          mensaje.appendChild(msg);
+          setTimeout(() => {
+            msg.remove();
+          }, 4000);
+        }
+      }
+    }
+    // Creo un arreglo del estado + el ultimo personaje
+    let team = [...idTeam, personajeId];
+    console.log(team);
+    console.log(idTeam);
+    // Actualizo el estado
+    setIdTeam(team);
+    console.log(idTeam);
+    console.log(team);
+    //Guardo el estado en LS, le paso arreglo no el estado
+    localStorage.setItem("id", JSON.stringify(team));
+    let mensaje = document.querySelector(".mensaje");
+    let msg = document.createElement("p");
+    msg.innerHTML = "Personaje agregado";
+    msg.classList.add(
+      "bg-info",
+      "text-white",
+      "rounded",
+      "p-2",
+      "mb-2",
+      "mx-auto"
+    );
+    mensaje.appendChild(msg);
+    setTimeout(() => {
+      msg.remove();
+    }, 800);
   }
 
   useEffect(() => {
@@ -129,7 +159,7 @@ function ApiResults({}) {
                       disabled={disabled}
                       key={person.id}
                       personaje={person}
-                      agregarPersonaje={agregarPersonaje}
+                      agregarPersonaje={(e) => agregarPersonaje(e)}
                     />
                   </div>
                 );
