@@ -1,3 +1,8 @@
+.superFont{
+  font-family: 'Bangers', cursive;
+  font-size:3rem;
+  
+}
 .dot {
   text-decoration: none;
   list-style: none;
@@ -9,6 +14,9 @@
 .card {
   width: 250px;
   margin-bottom: 20px;
+}
+.card img{
+  max-height: 280px;
 }
 .card-body {
   padding: 0 !important;
@@ -29,9 +37,10 @@
 .SumaPowerstats {
   text-transform: capitalize;
   text-align: center;
+  font-size:1.1rem;
 }
- .SumaPowerstats:hover {
-  font-weight: bold;
+.subtitulos{
+  font-size: 2rem!important;
 }
 body{
     opacity: .9;

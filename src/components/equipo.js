@@ -191,11 +191,11 @@ function Equipo({}) {
         </div>
         <div className="col-12">
           <hr />
-          <h1>Equipo</h1>
+          <h1 className="superFont f">Equipo</h1>
         </div>
       </div>
 
-      <div className=" py-md-1 dot SumaPowerstats rounded">
+      <div className=" superFont  animate__animated animate__zoomIn py-md-1 dot SumaPowerstats rounded">
         <li>Total Combat: {SumaCombat}</li>
         <li>Total Intelligence: {SumaIntelligence}</li>
         <li>Total Strength: {SumaStrength}</li>
@@ -222,17 +222,17 @@ function Equipo({}) {
               />
               <div className="card-body ">
                 <div className="dot mt-3">
-                  <h4 className="font-weight-bold">Powerstats</h4>
-                  <li>Combat: {x.powerstats.combat}</li>
-                  <li>Intelligence: {x.powerstats.intelligence}</li>
-                  <li>Strength: {x.powerstats.strength}</li>
-                  <li>Speed: {x.powerstats.speed}</li>
-                  <li>Durability: {x.powerstats.durability}</li>
-                  <li>Power: {x.powerstats.power}</li>
+                  <h4 className="font-weight-bold superFont subtitulos">Powerstats</h4>
+                  <li>Combat: {(x.powerstats.combat === "null" ) ? "-" : x.powerstats.combat }</li>
+                  <li>Intelligence: {(x.powerstats.intelligence === "null" ) ? "-" : x.powerstats.intelligence}</li>
+                  <li>Strength: {(x.powerstats.strength === "null" ) ? "-" : x.powerstats.strength}</li>
+                  <li>Speed: {(x.powerstats.speed === "null" ) ? "-" : x.powerstats.speed}</li>
+                  <li>Durability: {(x.powerstats.durability === "null" ) ? "-" : x.powerstats.durability}</li>
+                  <li>Power: {(x.powerstats.power === "null" ) ? "-" : x.powerstats.power}</li>
                 </div>
 
                 <div className="Detalles dot hidden " id={x.id}>
-                  <h4 className="font-weight-bold">Detalles</h4>
+                  <h4 className="font-weight-bold superFont subtitulos">Detalles</h4>
                   <li>Full Name: {x.biography["full-name"]}</li>
                   <li>Eye Color: {x.appearance["eye-color"]}</li>
                   <li>Hair Color: {x.appearance["hair-color"]}</li>
@@ -245,7 +245,7 @@ function Equipo({}) {
                 <button
                   id={x.id}
                   onClick={() => ocultarDetalles(x.id)}
-                  className="btn mt-2 btn-primary"
+                  className="btn mt-2 btn-primary "
                 >
                   Detalles
                 </button>

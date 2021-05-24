@@ -11,12 +11,12 @@ function SearchBar({ fetchData }) {
 
   return (
     <React.Fragment>
-      <h2 className="text-center my-3 ">Buscar Superheroes</h2>
+      <h1 className="text-center my-3 superFont mb-4">Buscar Superheroes</h1>
 
-      <div className="container text-center">
-        <div className="row  ">
+      <div className="container text-center ">
+        <div className="row ">
           <div className="col-md-4"></div>
-          <div className="col-md-4  input-n">
+          <div className="col-md-4 input-n my-auto my-auto">
             <form className=" mt-3  mx-auto form-inline my-2 my-lg-0" />
             <input
               onChange={cambioPersonaje}
@@ -27,6 +27,7 @@ function SearchBar({ fetchData }) {
               aria-label="Search"
               id="superValue"
             />
+         
             <button
               onClick={fetchData}
               className=" btn m btn-primary
@@ -36,6 +37,7 @@ function SearchBar({ fetchData }) {
             >
               Buscar
             </button>
+         
             <Link to="/equipo">
               <button className="btn btn-primary mx-3">Equipo</button>
             </Link>
