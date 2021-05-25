@@ -126,7 +126,7 @@ function Busqueda({}) {
             <div className="row justify-content-center ">
               {personaje.map((person,i) => {
                 return (
-                  <div className="mb-sm-0 col-md-4 col-sm-12" key={i}>
+                  <div className="mb-sm-0 col-md-4 col-sm-12 " key={i}>
                     <ResultadoBusqueda
                       disabled={disabled}
                       key={person.id}

@@ -39,7 +39,7 @@ function SearchBar({ fetchData }) {
               id="superValue"
               list="characterList"
             />
-            <datalist id="characterList"></datalist>
+            <datalist className="datalist" id="characterList"></datalist>
             <button
               onClick={fetchData}
               className=" btn m btn-primary

@@ -11,7 +11,7 @@ function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
   }
   return (
     <React.Fragment>
-      <h5 className=" superFont subtitulos text-uppercase ">{name}</h5>
+      <h5 className=" superFont subtitulos text-uppercase  ">{name}</h5>
       <img className="img-thumbnail img-busqueda" src={image.url} alt="" />
       <br />
       <button
@@ -22,7 +22,7 @@ function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
           agregarPersonaje(e);
           agregado(id);
         }}
-        className="btn btn-success mt-3 bt-sm-2 btnAgregar"
+        className="btn btn-success mt-3 mb-3 btnAgregar"
         value={biography.aligment}
       >
         {id === selectElement ? "Agregado" : "Agregar"}
