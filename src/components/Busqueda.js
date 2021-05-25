@@ -124,7 +124,7 @@ function Busqueda({}) {
         <div className="container text-center ">
           <SearchBar fetchData={fetchData} />
           <div className="container">
-            <div className="row ">
+            <div className="row justify-content-center ">
               {personaje.map((person) => {
                 return (
                   <div className="mb-sm-0 col-md-4 col-sm-12" key={person.id}>
