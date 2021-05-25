@@ -1,35 +1,45 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import userEventContext from "../userEventContext";
 import { Link } from "react-router-dom";
 import { characterId } from "../CharactersId";
+
 function SearchBar({ fetchData }) {
   const { cambioPersonaje } = useContext(userEventContext);
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       fetchData();
     }
   };
+  useEffect(() => {
+    //Agrego el menu desplegable
+    for (let i = 0; i < characterId.length; i++) {
+      let option = document.createElement("option");
+      option.value = characterId[i];
+      // console.log(option)
+      document.querySelector("datalist").appendChild(option);
+    }
+  },[]);
+
   return (
     <React.Fragment>
-      <h1 className="text-center my-3 superFont mb-4">Buscar Superheroes</h1>
+      <h1 className="text-center my-3 superFont mb-3">Buscar Superheroes</h1>
 
       <div className="container text-center ">
         <div className="row ">
           <div className="col-md-4"></div>
           <div className="col-md-4 input-n my-auto my-auto">
-            <form className=" mt-3  mx-auto form-inline my-2 my-lg-0" />
+            <form className=" mt-md-3 mx-auto form-inline my-2 my-lg-0" />
             <input
-              id="myInput"
+              placeholder="Escribí tu superheroe favorito..."
               onChange={cambioPersonaje}
               onKeyDown={handleKeyDown}
-              className=" input-name form-control  mr-sm-2 mb-3 text-center"
+              className="mt-md-3 input-name form-control  mb-3 text-center"
               type="search"
-              placeholder="Escribi tu superheroe favorito.."
               aria-label="Search"
               id="superValue"
+              list="characterList"
             />
-
+            <datalist id="characterList"></datalist>
             <button
               onClick={fetchData}
               className=" btn m btn-primary
@@ -39,7 +49,6 @@ function SearchBar({ fetchData }) {
             >
               Buscar
             </button>
-
             <Link to="/equipo">
               <button className="btn btn-primary mx-3">Equipo</button>
             </Link>
@@ -51,4 +60,5 @@ function SearchBar({ fetchData }) {
     </React.Fragment>
   );
 }
+
 export default SearchBar;

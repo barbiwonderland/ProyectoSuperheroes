@@ -124,10 +124,10 @@ function Busqueda({}) {
         <div className="container text-center ">
           <SearchBar fetchData={fetchData} />
           <div className="container">
-            <div className="row  ">
+            <div className="row ">
               {personaje.map((person) => {
                 return (
-                  <div className="col-md-4 col-sm-12" key={person.id}>
+                  <div className="mb-sm-0 col-md-4 col-sm-12" key={person.id}>
                     <ResultadoBusqueda
                       disabled={disabled}
                       key={person.id}

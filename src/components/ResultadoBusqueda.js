@@ -6,7 +6,7 @@ function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
 
   return (
     <React.Fragment>
-      <h5 className="mt-md-5 superFont subtitulos text-uppercase ">{name}</h5>
+      <h5 className=" superFont subtitulos text-uppercase ">{name}</h5>
       <img className="img-thumbnail img-busqueda" src={image.url} alt="" />
       <br />
       <button

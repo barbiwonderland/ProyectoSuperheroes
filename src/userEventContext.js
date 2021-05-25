@@ -8,6 +8,7 @@ const EventProvider = ({ children }) => {
   const cambioPersonaje = () => {
     let input_Name = document.querySelector(".input-name");
     let estadoName = input_Name.value;
+    
     // Lo agrego al estado
     setInputName(estadoName);
     console.log(inputName);
