@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
-  const [value, setValue] = React.useState(null);
-
   // Desestructuración del map personaje
   const { name, image, biography, id } = personaje;
 

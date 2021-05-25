@@ -6,25 +6,29 @@ import ResultadoBusqueda from "./ResultadoBusqueda";
 
 function ApiResults({}) {
   //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
-
   const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
+
+  // Importo UserEvent
   const { BusquedaUrl } = useContext(userEventContext);
-  const [personaje, setPersonaje] = useState([]);
+
   //Estados
   //Agrego al estado lo que estaaba en LS
   const [idTeam, setIdTeam] = useState(LocalGet);
+  const [personaje, setPersonaje] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [disabled, Setdisabled] = useState(false);
-  //Funcion para agregar personaje al resultado
+
+  //Funcion para agregar personaje al componente ResultadoBusqueda
   function agregarPersonaje(e) {
     e.preventDefault();
     //Tomo el id del personaje seleccionado
     let personajeId = e.target.id;
-    // Condiciones para mostrar mensajes
+    // Condiciones para mostrar alertas
     if (localStorage.getItem("id")) {
       if (localStorage.getItem("id") !== "[]") {
         let Localids = localStorage.getItem("id");
-        // Compruebo que no se vuelva a agregar un personaje igual
+
+        // Condición para que no se vuelva a agregar un personaje igual
         if (Localids.includes(personajeId)) {
           let repetido = document.querySelector(".mensaje");
           let error = document.createElement("p");
@@ -75,7 +79,7 @@ function ApiResults({}) {
     setIdTeam(team);
     console.log(idTeam);
     console.log(team);
-    //Guardo el estado en LS, le paso arreglo no el estado
+    //Guardo el estado en LS, **le paso arreglo no el estado**
     localStorage.setItem("id", JSON.stringify(team));
     let mensaje = document.querySelector(".mensaje");
     let msg = document.createElement("p");
@@ -115,6 +119,7 @@ function ApiResults({}) {
       console.log(res);
       setPersonaje(res.data.results);
       setLoading(false);
+      // Condición si el personaje que se busco no esta en la base de la api
       if (res.data.response === "error") {
         let error = document.querySelector(".error");
         let msg = document.createElement("p");

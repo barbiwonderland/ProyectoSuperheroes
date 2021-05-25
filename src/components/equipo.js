@@ -3,12 +3,13 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { FaArrowLeft, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Alert } from "@material-ui/lab/Alert/Alert";
 function Equipo({}) {
   // History(para ir a una ruta anterior)
   const history = useHistory();
   //Estados
   const [isLoading, setLoading] = useState(true);
-  let [prueba, setPrueba] = useState([]);
+  let [equipo, setEquipo] = useState([]);
 
   //Extraigo de localstorage id selccionados
   let conjuntoIds = localStorage.getItem("id");
@@ -25,13 +26,12 @@ function Equipo({}) {
         // mapeo los id y llamo a la api
         axios.all(url.map((x) => axios.get(x))).then(
           axios.spread(function (...res) {
-            // all requests are now complete
             console.log(res);
             if (res !== undefined) {
               let respuesta = res.map((x) => x.data);
               console.log(respuesta);
-              setPrueba(respuesta);
-              console.log(prueba);
+              setEquipo(respuesta);
+              console.log(equipo);
               setLoading(false);
             }
           })
@@ -41,11 +41,11 @@ function Equipo({}) {
       obtenerApi();
     }
   }, []);
-
+  // Si no hay personajes en el equipo redirecciona a busqueda
   if (conjuntoIds === null) {
     setTimeout(() => {
       history.push("/");
-    }, 1000);
+    }, 2000);
   }
 
   // Loading
@@ -63,7 +63,7 @@ function Equipo({}) {
       </React.Fragment>
     );
   }
-  //Ocultar detalles
+  //Funcion para mostrar detalles
   const ocultarDetalles = (x) => {
     let r = document.querySelectorAll(".Detalles");
     r.forEach((m) => {
@@ -79,7 +79,7 @@ function Equipo({}) {
     window.location.reload();
   }
 
-  //Funcion para eliminar personaje del equipo
+  //Funcion para eliminar un personaje del equipo
   const eliminarPersonaje = (e) => {
     e.preventDefault();
     let borrarPersonaje = e.target.id;
@@ -90,7 +90,7 @@ function Equipo({}) {
   };
 
   //Suma Powerstates
-  const SumaCombat = prueba.reduce(
+  const SumaCombat = equipo.reduce(
     (total, currentValue) =>
       (total =
         total +
@@ -101,7 +101,7 @@ function Equipo({}) {
         )),
     0
   );
-  const SumaIntelligence = prueba.reduce(
+  const SumaIntelligence = equipo.reduce(
     (total, currentValue) =>
       (total =
         total +
@@ -112,7 +112,7 @@ function Equipo({}) {
         )),
     0
   );
-  const SumaStrength = prueba.reduce(
+  const SumaStrength = equipo.reduce(
     (total, currentValue) =>
       (total =
         total +
@@ -123,7 +123,7 @@ function Equipo({}) {
         )),
     0
   );
-  const SumaSpeed = prueba.reduce(
+  const SumaSpeed = equipo.reduce(
     (total, currentValue) =>
       (total =
         total +
@@ -134,7 +134,7 @@ function Equipo({}) {
         )),
     0
   );
-  const SumaDurability = prueba.reduce(
+  const SumaDurability = equipo.reduce(
     (total, currentValue) =>
       (total =
         total +
@@ -145,7 +145,7 @@ function Equipo({}) {
         )),
     0
   );
-  const SumaPower = prueba.reduce(
+  const SumaPower = equipo.reduce(
     (total, currentValue) =>
       (total =
         total +
@@ -159,18 +159,18 @@ function Equipo({}) {
 
   //Peso y altura promedio del equipo
   const SumaPeso =
-    prueba.reduce(
+    equipo.reduce(
       (total, currentValue) =>
         (total = total + parseInt(currentValue.appearance.weight[1])),
       0
-    ) / prueba.length;
+    ) / equipo.length;
 
   const SumaAltura =
-    prueba.reduce(
+    equipo.reduce(
       (total, currentValue) =>
         (total = total + parseInt(currentValue.appearance.height[1])),
       0
-    ) / prueba.length;
+    ) / equipo.length;
   console.log(SumaPeso, SumaAltura);
 
   return (
@@ -214,7 +214,7 @@ function Equipo({}) {
         </li>
       </div>
       <div className="row d-flex justify-content-center ">
-        {prueba.map((x) => (
+        {equipo.map((x) => (
           <React.Fragment key={x.id}>
             <div className="card m-4 p-3">
               <h4>{x.name}</h4>

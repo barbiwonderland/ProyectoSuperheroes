@@ -2,8 +2,9 @@ import React, { useState, useContext } from "react";
 import userEventContext from "../userEventContext";
 import { Link } from "react-router-dom";
 function SearchBar({ fetchData }) {
-  const { cambioPersonaje, BusquedaUrl } = useContext(userEventContext)
   
+  const { cambioPersonaje } = useContext(userEventContext);
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       fetchData();
@@ -28,7 +29,7 @@ function SearchBar({ fetchData }) {
               aria-label="Search"
               id="superValue"
             />
-         
+
             <button
               onClick={fetchData}
               className=" btn m btn-primary
@@ -38,12 +39,11 @@ function SearchBar({ fetchData }) {
             >
               Buscar
             </button>
-         
+
             <Link to="/equipo">
               <button className="btn btn-primary mx-3">Equipo</button>
             </Link>
             <div className="error text-center mt-3"></div>
-
           </div>
         </div>
         <div className="mensaje  d-inline-block "></div>

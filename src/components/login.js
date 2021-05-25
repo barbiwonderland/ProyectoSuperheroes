@@ -7,8 +7,8 @@ import { url } from "../PostUrl";
 function Login() {
   //Estados
   const [form, setForm] = useState({
-    usuario: "Jose",
-    password: "Perez",
+    Email: "",
+    password: "",
   });
   // function prueba() {
   //   axios
@@ -25,22 +25,23 @@ function Login() {
   //       }
   //     );
   // }
-  //  function prueba2() {
-  //    fetch(url, {
-  //      method: "POST",
-  //      body: JSON.stringify({
-  //        Email: "prueba@gmail.com",
-  //        Password: "react123",
-  //      }),
-  //      headers: {
-  //        "Content-Type": "application/x-www-form-urlencoded" 
-  //      },
-  //    })
-  //      .then((response) => response.json())
-  //      .then((json) => console.log(json));
-  //  }
- 
-  //  prueba2();
+  // Error 401 Unauthorized, no lo pude resolver :(
+    // function prueba2() {
+    //   fetch(url, {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       email: "challenge@alkemy.org",
+    //       password: "react",
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/x-www-form-urlencoded" 
+    //     },
+    //   })
+    //     .then((response) => response.json())
+    //     .then((json) => console.log(json));
+    // }
+
+    // prueba2();
   return (
     <React.Fragment>
       <Formik
