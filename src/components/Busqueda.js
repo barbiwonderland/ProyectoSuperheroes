@@ -71,7 +71,6 @@ function Busqueda({}) {
     console.log(team);
     //Guardo el estado en LS, **le paso arreglo no el estado**
     localStorage.setItem("id", JSON.stringify(team));
-    alerta("Personaje agregado", "success");
   }
 
   useEffect(() => {
@@ -125,9 +124,9 @@ function Busqueda({}) {
           <SearchBar fetchData={fetchData} />
           <div className="container">
             <div className="row justify-content-center ">
-              {personaje.map((person) => {
+              {personaje.map((person,i) => {
                 return (
-                  <div className="mb-sm-0 col-md-4 col-sm-12" key={person.id}>
+                  <div className="mb-sm-0 col-md-4 col-sm-12" key={i}>
                     <ResultadoBusqueda
                       disabled={disabled}
                       key={person.id}

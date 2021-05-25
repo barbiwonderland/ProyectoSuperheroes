@@ -18,7 +18,7 @@ function SearchBar({ fetchData }) {
       // console.log(option)
       document.querySelector("datalist").appendChild(option);
     }
-  },[]);
+  }, []);
 
   return (
     <React.Fragment>
