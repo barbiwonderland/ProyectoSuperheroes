@@ -148,9 +148,9 @@ function ApiResults({}) {
         <div className="text-center">
         <h2 className="text-warning ">Loading...</h2>
         </div>
-        <div class="d-flex justify-content-center  ">
-          <div class="spinner-grow  text-warning mt-3">
-            <span class="sr-only">Loading...</span>
+        <div className="d-flex justify-content-center  ">
+          <div className="spinner-grow  text-warning mt-3">
+            <span className="sr-only">Loading...</span>
           </div>
         </div>
       </React.Fragment>
