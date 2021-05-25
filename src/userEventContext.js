@@ -10,8 +10,8 @@ const EventProvider = ({ children }) => {
     let estadoName = input_Name.value;
     // Lo agrego al estado
     setInputName(estadoName);
-    console.log(inputName)
-  }
+    console.log(inputName);
+  };
   // Armo la url con el value del input
   let BusquedaUrl = `
   https://www.superheroapi.com/api.php/2831945550360412/search/${inputName}`;

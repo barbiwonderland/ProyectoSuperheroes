@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import userEventContext from "../userEventContext";
 import { Link } from "react-router-dom";
+import { characterId } from "../CharactersId";
 function SearchBar({ fetchData }) {
-  
   const { cambioPersonaje } = useContext(userEventContext);
 
   const handleKeyDown = (event) => {
@@ -10,7 +10,6 @@ function SearchBar({ fetchData }) {
       fetchData();
     }
   };
-
   return (
     <React.Fragment>
       <h1 className="text-center my-3 superFont mb-4">Buscar Superheroes</h1>
@@ -21,6 +20,7 @@ function SearchBar({ fetchData }) {
           <div className="col-md-4 input-n my-auto my-auto">
             <form className=" mt-3  mx-auto form-inline my-2 my-lg-0" />
             <input
+              id="myInput"
               onChange={cambioPersonaje}
               onKeyDown={handleKeyDown}
               className=" input-name form-control  mr-sm-2 mb-3 text-center"
@@ -46,7 +46,7 @@ function SearchBar({ fetchData }) {
             <div className="error text-center mt-3"></div>
           </div>
         </div>
-        <div className="mensaje  d-inline-block "></div>
+        <div className="mensaje d-inline-block text-center "></div>
       </div>
     </React.Fragment>
   );

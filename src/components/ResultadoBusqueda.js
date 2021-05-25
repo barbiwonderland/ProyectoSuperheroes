@@ -20,7 +20,6 @@ function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
         Agregar
       </button>
       <br />
-      <div className="repetido p-2 m-2 mx-auto d-inline-block"></div>
     </React.Fragment>
   );
 }

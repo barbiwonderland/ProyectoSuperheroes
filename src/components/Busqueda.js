@@ -3,21 +3,40 @@ import axios from "axios";
 import userEventContext from "../userEventContext";
 import SearchBar from "./SearchBar";
 import ResultadoBusqueda from "./ResultadoBusqueda";
+import Loading from "./Loading";
 
-function ApiResults({}) {
-  //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
-  const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
+function Busqueda({}) {
 
   // Importo UserEvent
   const { BusquedaUrl } = useContext(userEventContext);
+
+  //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
+  const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
 
   //Estados
   //Agrego al estado lo que estaaba en LS
   const [idTeam, setIdTeam] = useState(LocalGet);
   const [personaje, setPersonaje] = useState([]);
-  const [Loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [disabled, Setdisabled] = useState(false);
 
+  //Mensajes
+  function alerta(mensaje, tipo) {
+    let div = document.querySelector(".mensaje");
+    let msg = document.createElement("p");
+    msg.innerHTML = mensaje;
+    msg.classList.add("rounded", "p-2", "mb-2", "mx-auto", "text-white");
+    if (tipo === "error") {
+      msg.classList.add("bg-danger");
+    } else {
+      msg.classList.add("bg-success");
+    }
+    div.appendChild(msg);
+    setTimeout(() => {
+      msg.remove();
+    }, 4000);
+  }
+  
   //Funcion para agregar personaje al componente ResultadoBusqueda
   function agregarPersonaje(e) {
     e.preventDefault();
@@ -27,24 +46,9 @@ function ApiResults({}) {
     if (localStorage.getItem("id")) {
       if (localStorage.getItem("id") !== "[]") {
         let Localids = localStorage.getItem("id");
-
         // Condición para que no se vuelva a agregar un personaje igual
         if (Localids.includes(personajeId)) {
-          let repetido = document.querySelector(".mensaje");
-          let error = document.createElement("p");
-          error.innerHTML = "Personaje ya seleccionado";
-          error.classList.add(
-            "bg-danger",
-            "text-white",
-            "rounded",
-            "p-2",
-            "mb-2",
-            "mx-auto"
-          );
-          repetido.appendChild(error);
-          setTimeout(() => {
-            error.remove();
-          }, 4000);
+          alerta("Personaje Repetido", "error");
           return;
         }
         // Condición para que no se agreguen mas de 6 personajes
@@ -53,21 +57,7 @@ function ApiResults({}) {
           JSON.parse(Localids).length === 5
         ) {
           Setdisabled(true);
-          let mensaje = document.querySelector(".mensaje");
-          let msg = document.createElement("p");
-          msg.innerHTML = "Equipo Completo";
-          msg.classList.add(
-            "bg-success",
-            "text-white",
-            "rounded",
-            "p-2",
-            "mb-2",
-            "mx-auto"
-          );
-          mensaje.appendChild(msg);
-          setTimeout(() => {
-            msg.remove();
-          }, 4000);
+          alerta("Equipo Completo", "success");
         }
       }
     }
@@ -81,21 +71,7 @@ function ApiResults({}) {
     console.log(team);
     //Guardo el estado en LS, **le paso arreglo no el estado**
     localStorage.setItem("id", JSON.stringify(team));
-    let mensaje = document.querySelector(".mensaje");
-    let msg = document.createElement("p");
-    msg.innerHTML = "Personaje agregado";
-    msg.classList.add(
-      "bg-info",
-      "text-white",
-      "rounded",
-      "p-2",
-      "mb-2",
-      "mx-auto"
-    );
-    mensaje.appendChild(msg);
-    setTimeout(() => {
-      msg.remove();
-    }, 800);
+    alerta("Personaje agregado", "success");
   }
 
   useEffect(() => {
@@ -114,47 +90,21 @@ function ApiResults({}) {
 
   // Llamado a la api Superhero
   const fetchData = () => {
-    setLoading(true);
+    setIsLoading(true);
     axios.get(BusquedaUrl).then((res) => {
       console.log(res);
       setPersonaje(res.data.results);
-      setLoading(false);
+      setIsLoading(false);
       // Condición si el personaje que se busco no esta en la base de la api
       if (res.data.response === "error") {
-        let error = document.querySelector(".error");
-        let msg = document.createElement("p");
-        msg.innerHTML = "Personaje no encontrado";
-        msg.classList.add(
-          "bg-danger",
-          "text-white",
-          "rounded",
-          "p-2",
-          "mb-2",
-          "mx-auto",
-          "text-center"
-        );
-        error.appendChild(msg);
-        setTimeout(() => {
-          msg.remove();
-        }, 1000);
+        alerta("Personaje no encontrado", "error");
       }
     });
   };
 
   // Loading
-  if (Loading) {
-    return (
-      <React.Fragment>
-        <div className="text-center">
-        <h2 className="text-warning ">Loading...</h2>
-        </div>
-        <div className="d-flex justify-content-center  ">
-          <div className="spinner-grow  text-warning mt-3">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      </React.Fragment>
-    );
+  if (isLoading) {
+    return <Loading />;
   }
 
   // Condición para mostrar o no el resultado de la busqueda
@@ -195,4 +145,4 @@ function ApiResults({}) {
   }
 }
 
-export default ApiResults;
+export default Busqueda;

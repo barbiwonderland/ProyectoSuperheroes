@@ -26,22 +26,22 @@ function Login() {
   //     );
   // }
   // Error 401 Unauthorized, no lo pude resolver :(
-    // function prueba2() {
-    //   fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       email: "challenge@alkemy.org",
-    //       password: "react",
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/x-www-form-urlencoded" 
-    //     },
-    //   })
-    //     .then((response) => response.json())
-    //     .then((json) => console.log(json));
-    // }
+  // function prueba2() {
+  //   fetch(url, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       email: "challenge@alkemy.org",
+  //       password: "react",
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/x-www-form-urlencoded"
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => console.log(json));
+  // }
 
-    // prueba2();
+  // prueba2();
   return (
     <React.Fragment>
       <Formik
