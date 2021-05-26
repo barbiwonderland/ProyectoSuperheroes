@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import userEventContext from "../userEventContext";
 import { Link } from "react-router-dom";
 import { characterId } from "../CharactersId";
+import Auth from "../Auth";
 
 function SearchBar({ fetchData }) {
   const { cambioPersonaje } = useContext(userEventContext);
@@ -49,7 +50,7 @@ function SearchBar({ fetchData }) {
             >
               Buscar
             </button>
-            <Link to="/equipo">
+            <Link to="equipo">
               <button className="btn btn-primary mx-3">Equipo</button>
             </Link>
             <div className="error text-center mt-3"></div>

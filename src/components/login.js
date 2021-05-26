@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/form.css";
 import axios from "axios";
 import { Formik } from "formik";
 import { url } from "../PostUrl";
 import { useHistory } from "react-router-dom";
+import Auth from "../Auth"
 
-function Login() {
+function Login(props) {
   // History(para ir a una ruta anterior)
   const history = useHistory();
   //Función que llama al token
+  // const [isAuth, setIsAuth] = useState(false);
+
   function ApiToken() {
     axios
       .post(
@@ -27,20 +30,16 @@ function Login() {
         (response) => {
           console.log(response.data.token);
           localStorage.setItem("Token", response.data.token);
+          Auth.login(() => {
+            props.history.push("/busqueda");
+          });
         },
         (error) => {
           console.log(error);
         }
       );
   }
-  useEffect(() => {
-    // Verifico si hay un token en Local Storage, si hay redirecciono a busqueda
-    let localToken = JSON.stringify(localStorage.getItem("Token"));
-    if (localToken !== undefined) {
-      console.log(localToken, "lt");
-      history.push("/busqueda");
-    }
-  });
+
   return (
     <React.Fragment>
       <Formik

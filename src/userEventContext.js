@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 const userEventContext = React.createContext();
 
 const EventProvider = ({ children }) => {
@@ -8,7 +8,7 @@ const EventProvider = ({ children }) => {
   const cambioPersonaje = () => {
     let input_Name = document.querySelector(".input-name");
     let estadoName = input_Name.value;
-    
+
     // Lo agrego al estado
     setInputName(estadoName);
     console.log(inputName);

@@ -7,7 +7,6 @@ function ResultadoBusqueda({ disabled, personaje, agregarPersonaje }) {
   const [selectElement, setSelectElement] = useState(0);
   function agregado(x) {
     setSelectElement(x);
-    document.querySelector(".btnAgregar").classList.add("btn-info");
   }
   return (
     <React.Fragment>

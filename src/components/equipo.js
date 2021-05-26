@@ -43,12 +43,7 @@ function Equipo({}) {
 
       obtenerApi();
 
-      // Verifico si hay un token en Local Storage, si hay redirecciono a busqueda
-      // let localToken = JSON.stringify(localStorage.getItem("Token"));
-      // if (localToken === null) {
-      //   console.log(localToken, "lt");
-      //   history.push("/");
-      // }
+      
     }
   }, []);
 
@@ -65,7 +60,7 @@ function Equipo({}) {
   // Funcion para eliminar todo el equipo de personajes
   function eliminarEquipo() {
     localStorage.removeItem("id");
-    window.location.reload();
+ 
   }
 
   //Funcion para eliminar un personaje del equipo
