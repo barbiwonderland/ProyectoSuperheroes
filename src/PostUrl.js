@@ -1,1 +1,1 @@
-export const url = "http://challenge-react.alkemy.org/";
+export const url = "https://challenge-react.alkemy.org/";
