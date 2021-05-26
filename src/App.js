@@ -10,7 +10,9 @@ import ProtectRoute from "./ProtectRoute";
 
 function App() {
   const [isAuth, setIsAuth] = useState(true);
+
   useEffect(() => {
+    // Llamo al localStorage para ver si existe "Token",si existe cambio el estado "isAuth"
     let TokenLS = localStorage.getItem("Token");
     if (TokenLS !== null) {
       console.log(TokenLS, "token from LS");
@@ -31,7 +33,7 @@ function App() {
            me devuelve la actualización mas tarde, dejo el set inicial en true para que no falle */}
           {/* //Rutas Protegidas */}
           <ProtectRoute path="/busqueda" component={Busqueda} isAuth={isAuth} />
-          <ProtectRoute path="/equipo" component={Equipo} isAuth={isAuth} /> 
+          <ProtectRoute path="/equipo" component={Equipo} isAuth={isAuth} />
         </EventProvider>
       </Switch>
     </BrowserRouter>
