@@ -10,6 +10,7 @@ function Login() {
   //Función que llama al token
 
   function ApiToken() {
+    // Llamado a la api para obtener el token que guardo en el localStorage
     axios
       .post(
         url,
@@ -63,8 +64,9 @@ function Login() {
           console.log(values);
           setSubmitting(false);
           setTimeout(() => {
+            // Una vez que inicio sesión redirecciona a busqueda
             history.push("/busqueda");
-          }, 500);
+          }, 1000);
         }}
       >
         {({

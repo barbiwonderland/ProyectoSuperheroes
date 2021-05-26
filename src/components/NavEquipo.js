@@ -1,8 +1,8 @@
 import React from "react";
 import { FaArrowLeft, FaTrash } from "react-icons/fa";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function NavEquipo({eliminarEquipo}) {
+function NavEquipo({ eliminarEquipo }) {
   return (
     <div className="container">
       <div className="row">
@@ -17,12 +17,12 @@ function NavEquipo({eliminarEquipo}) {
 
         <div className="col-md-4  my-auto">
           <Link to="/busqueda">
-          <button
-            onClick={eliminarEquipo}
-            className="btn btn-danger my-2 rounded "
-          >
-            <FaTrash /> Equipo
-          </button>
+            <button
+              onClick={eliminarEquipo}
+              className="btn btn-danger my-2 rounded "
+            >
+              <FaTrash /> Equipo
+            </button>
           </Link>
         </div>
       </div>

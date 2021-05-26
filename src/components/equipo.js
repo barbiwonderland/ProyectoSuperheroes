@@ -42,8 +42,6 @@ function Equipo({}) {
       }
 
       obtenerApi();
-
-      
     }
   }, []);
 
@@ -60,7 +58,6 @@ function Equipo({}) {
   // Funcion para eliminar todo el equipo de personajes
   function eliminarEquipo() {
     localStorage.removeItem("id");
- 
   }
 
   //Funcion para eliminar un personaje del equipo
@@ -90,7 +87,7 @@ function Equipo({}) {
         <NavEquipo eliminarEquipo={eliminarEquipo} />
       </div>
       <ResumenEquipo equipo={equipo} />
-      <div className="row d-flex justify-content-center " >
+      <div className="row d-flex justify-content-center ">
         {equipo.map((x) => (
           <div key={x.id}>
             <ResultadoEquipo

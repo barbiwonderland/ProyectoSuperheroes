@@ -6,9 +6,6 @@ import ResultadoBusqueda from "./ResultadoBusqueda";
 import Loading from "./Loading";
 import { useHistory } from "react-router-dom";
 
-
-
-
 function Busqueda({}) {
   // Importo UserEvent
   const { BusquedaUrl } = useContext(userEventContext);
@@ -90,7 +87,6 @@ function Busqueda({}) {
         }
       }
     }
-
   }, []);
 
   // Llamado a la api Superhero
