@@ -50,7 +50,7 @@ function SearchBar({ fetchData }) {
             >
               Buscar
             </button>
-            <Link to="equipo">
+            <Link to="/equipo">
               <button className="btn btn-primary mx-3">Equipo</button>
             </Link>
             <div className="error text-center mt-3"></div>

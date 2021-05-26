@@ -16,7 +16,7 @@ function NavEquipo({eliminarEquipo}) {
         <div className="col-md-4"></div>
 
         <div className="col-md-4  my-auto">
-          <Link to="busqueda">
+          <Link to="/busqueda">
           <button
             onClick={eliminarEquipo}
             className="btn btn-danger my-2 rounded "
