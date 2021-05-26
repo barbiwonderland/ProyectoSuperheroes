@@ -6,21 +6,18 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./components/login";
 import Busqueda from "./components/Busqueda";
 import React, { useState, useEffect } from "react";
+import ProtectRoute from "./ProtectRoute";
 
 function App() {
-
-
- 
+  const [isAuth,setIsAuth]=useState(false)
+  console.log(isAuth)
   return (
     <BrowserRouter>
       <Switch>
         <EventProvider>
           <Route exact path="/" component={Login}></Route>
-          <Route exact path="/busqueda" component={Busqueda}></Route>
-          {/* <ProtectedRoute exact path="/busqueda" component={Busqueda} /> */}
-          <Route exact path="/equipo" component={Equipo} />
-
-        
+          <ProtectRoute exact path="/busqueda" component={Busqueda} isAuth={isAuth}/>
+          <ProtectRoute exact path="/equipo" component={Equipo} isAuth={isAuth}/>
         </EventProvider>
       </Switch>
     </BrowserRouter>

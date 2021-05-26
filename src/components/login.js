@@ -5,11 +5,9 @@ import { Formik } from "formik";
 import { url } from "../PostUrl";
 import { useHistory } from "react-router-dom";
 
-function Login(props) {
-  // History(para ir a una ruta anterior)
+function Login() {
   const history = useHistory();
   //Función que llama al token
-  // const [isAuth, setIsAuth] = useState(false);
 
   function ApiToken() {
     axios
@@ -28,6 +26,7 @@ function Login(props) {
       .then(
         (response) => {
           console.log(response.data.token);
+          // Guardo el token en Local Storage
           localStorage.setItem("Token", response.data.token);
         },
         (error) => {
