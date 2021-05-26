@@ -4,11 +4,16 @@ import userEventContext from "../userEventContext";
 import SearchBar from "./SearchBar";
 import ResultadoBusqueda from "./ResultadoBusqueda";
 import Loading from "./Loading";
+import { useHistory } from "react-router-dom";
+
+
+
 
 function Busqueda({}) {
-
   // Importo UserEvent
   const { BusquedaUrl } = useContext(userEventContext);
+  // Importo UseHistory
+  const history = useHistory();
 
   //Traigo los persoanjes que ya habian sido agregados al equipo o [] si esta vacio
   const LocalGet = JSON.parse(localStorage.getItem("id") || "[]");
@@ -36,7 +41,7 @@ function Busqueda({}) {
       msg.remove();
     }, 4000);
   }
-  
+
   //Funcion para agregar personaje al componente ResultadoBusqueda
   function agregarPersonaje(e) {
     e.preventDefault();
@@ -85,6 +90,13 @@ function Busqueda({}) {
         }
       }
     }
+
+    // Verifico si hay un token en Local Storage, si hay redirecciono a busqueda
+    // let localToken = JSON.stringify(localStorage.getItem("Token"));
+    // if (localToken === null) {
+    //   console.log(localToken, "lt");
+    //   history.push("/");
+    // }
   }, []);
 
   // Llamado a la api Superhero
@@ -124,7 +136,7 @@ function Busqueda({}) {
           <SearchBar fetchData={fetchData} />
           <div className="container">
             <div className="row justify-content-center ">
-              {personaje.map((person,i) => {
+              {personaje.map((person, i) => {
                 return (
                   <div className="mb-sm-0 col-md-4 col-sm-12 " key={i}>
                     <ResultadoBusqueda

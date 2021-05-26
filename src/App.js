@@ -11,9 +11,9 @@ function App() {
     <BrowserRouter>
       <Switch>
         <EventProvider>
-          <Route exact path="/" component={Busqueda}></Route>
+          <Route exact path="/" component={Login}></Route>
+          <Route exact path="/busqueda" component={Busqueda}></Route>
           <Route exact path="/equipo" component={Equipo}></Route>
-          <Route exact path="/login" component={Login}></Route>
         </EventProvider>
       </Switch>
     </BrowserRouter>

@@ -7,7 +7,7 @@ function NavEquipo({eliminarEquipo}) {
     <div className="container">
       <div className="row">
         <div className="col-md-4 my-auto ">
-          <Link to="/">
+          <Link to="/busqueda">
             <button className=" mt-3 mt-md-0  btn btn-primary">
               <FaArrowLeft /> Volver
             </button>

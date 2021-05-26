@@ -1,50 +1,50 @@
-import React, { Component, setState, useState } from "react";
+import React, { useEffect } from "react";
 import "./styles/form.css";
 import axios from "axios";
 import { Formik } from "formik";
 import { url } from "../PostUrl";
+import { useHistory } from "react-router-dom";
 
 function Login() {
-  //Estados
-  const [form, setForm] = useState({
-    Email: "",
-    password: "",
+  // History(para ir a una ruta anterior)
+  const history = useHistory();
+  //Función que llama al token
+  function ApiToken() {
+    axios
+      .post(
+        url,
+        {
+          email: "challenge@alkemy.org",
+          password: "react",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(
+        (response) => {
+          console.log(response.data.token);
+          localStorage.setItem("Token", response.data.token);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+  useEffect(() => {
+    // Verifico si hay un token en Local Storage, si hay redirecciono a busqueda
+    let localToken = JSON.stringify(localStorage.getItem("Token"));
+    if (localToken !== undefined) {
+      console.log(localToken, "lt");
+      history.push("/busqueda");
+    }
   });
-  // function prueba() {
-  //   axios
-  //     .post(url, {
-  //       Email: "challenge@alkemy.org",
-  //       Password: "react",
-  //     })
-  //     .then(
-  //       (response) => {
-  //         console.log(response);
-  //       },
-  //       (error) => {
-  //         console.log(error);
-  //       }
-  //     );
-  // }
-  // Error 401 Unauthorized, no lo pude resolver :(
-  // function prueba2() {
-  //   fetch(url, {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       email: "challenge@alkemy.org",
-  //       password: "react",
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/x-www-form-urlencoded"
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((json) => console.log(json));
-  // }
-
-  // prueba2();
   return (
     <React.Fragment>
       <Formik
+        validateOnChange
         initialValues={{ email: "", password: "" }}
         validate={(values) => {
           const errors = {};
@@ -58,19 +58,16 @@ function Login() {
 
           if (!values.password) {
             errors.password = "Escriba una contraseña";
-          } else if (/^[a-z0-9_]{3,6}$/i.test(values.password)) {
+          } else if (/^[a-z0-9_]{1,6}$/i.test(values.password)) {
             errors.password =
               "La contraseña debe tener entre 3 y 6 caracteres mínimo";
           }
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            console.log(values);
-
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          ApiToken();
+          console.log(values);
+          setSubmitting(false);
         }}
       >
         {({
@@ -134,4 +131,5 @@ function Login() {
     </React.Fragment>
   );
 }
+
 export default Login;
