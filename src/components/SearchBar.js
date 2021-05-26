@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import userEventContext from "../userEventContext";
 import { Link } from "react-router-dom";
 import { characterId } from "../CharactersId";
-import Auth from "../Auth";
+
 
 function SearchBar({ fetchData }) {
   const { cambioPersonaje } = useContext(userEventContext);

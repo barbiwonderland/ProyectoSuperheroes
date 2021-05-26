@@ -6,7 +6,6 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./components/login";
 import Busqueda from "./components/Busqueda";
 import React, { useState, useEffect } from "react";
-import ProtectedRoute from "./ProtectedRoute"
 
 function App() {
 

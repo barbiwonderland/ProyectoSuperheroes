@@ -4,7 +4,6 @@ import axios from "axios";
 import { Formik } from "formik";
 import { url } from "../PostUrl";
 import { useHistory } from "react-router-dom";
-import Auth from "../Auth"
 
 function Login(props) {
   // History(para ir a una ruta anterior)
@@ -22,7 +21,7 @@ function Login(props) {
         },
         {
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       )
@@ -30,9 +29,6 @@ function Login(props) {
         (response) => {
           console.log(response.data.token);
           localStorage.setItem("Token", response.data.token);
-          // Auth.login(() => {
-          //   props.history.push("/busqueda");
-          // });
         },
         (error) => {
           console.log(error);
@@ -67,6 +63,9 @@ function Login(props) {
           ApiToken();
           console.log(values);
           setSubmitting(false);
+          setTimeout(() => {
+            history.push("/busqueda");
+          }, 500);
         }}
       >
         {({
