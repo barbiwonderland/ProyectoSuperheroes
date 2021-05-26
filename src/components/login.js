@@ -31,9 +31,9 @@ function Login(props) {
         (response) => {
           console.log(response.data.token);
           localStorage.setItem("Token", response.data.token);
-          Auth.login(() => {
-            props.history.push("/busqueda");
-          });
+          // Auth.login(() => {
+          //   props.history.push("/busqueda");
+          // });
         },
         (error) => {
           console.log(error);

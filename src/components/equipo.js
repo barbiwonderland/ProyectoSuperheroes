@@ -90,9 +90,9 @@ function Equipo({}) {
         <NavEquipo eliminarEquipo={eliminarEquipo} />
       </div>
       <ResumenEquipo equipo={equipo} />
-      <div className="row d-flex justify-content-center ">
+      <div className="row d-flex justify-content-center " >
         {equipo.map((x) => (
-          <div>
+          <div key={x.id}>
             <ResultadoEquipo
               equipo={x}
               ocultarDetalles={ocultarDetalles}

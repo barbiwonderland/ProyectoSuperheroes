@@ -17,7 +17,8 @@ function App() {
       <Switch>
         <EventProvider>
           <Route exact path="/" component={Login}></Route>
-          <ProtectedRoute exact path="/busqueda" component={Busqueda} />
+          <Route exact path="/busqueda" component={Busqueda}></Route>
+          {/* <ProtectedRoute exact path="/busqueda" component={Busqueda} /> */}
           <Route exact path="/equipo" component={Equipo} />
 
         
