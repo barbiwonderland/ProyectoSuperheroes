@@ -7,10 +7,10 @@ import { useHistory } from "react-router-dom";
 
 function Login() {
   const history = useHistory();
-  //Función que llama al token
 
+  // Llamado a la api para obtener el token
   function ApiToken() {
-    // Llamado a la api para obtener el token que guardo en el localStorage
+    // En versión Netlify, error: Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR
     axios
       .post(
         url,

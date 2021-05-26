@@ -31,7 +31,7 @@ function App() {
            me devuelve la actualización mas tarde, dejo el set inicial en true para que no falle */}
           {/* //Rutas Protegidas */}
           <ProtectRoute path="/busqueda" component={Busqueda} isAuth={isAuth} />
-          <ProtectRoute path="/equipo" component={Equipo} isAuth={isAuth} /> */
+          <ProtectRoute path="/equipo" component={Equipo} isAuth={isAuth} /> 
         </EventProvider>
       </Switch>
     </BrowserRouter>
