@@ -84,12 +84,18 @@ body {
   background-position: center center;
   background-size: cover;
   display: inline-block;
-  background:linear-gradient(rgba(30, 26, 26, 0.3), rgba(0, 0, 0, 0.8)), url("https://w0.peakpx.com/wallpaper/687/560/HD-wallpaper-comics-words-superhero-comic-book-design-pow-premium-text-wow.jpg");
-
+  background: linear-gradient(rgba(30, 26, 26, 0.3), rgba(0, 0, 0, 0.8)),
+    url("https://w0.peakpx.com/wallpaper/687/560/HD-wallpaper-comics-words-superhero-comic-book-design-pow-premium-text-wow.jpg");
 }
 
 .supertitle {
   padding: 5px 0 5px 0;
   color: black;
   font-weight: bolder;
+}
+
+@media screen and (max-width:450px) {
+  .totals {
+    width: 100%;
+  }
 }
