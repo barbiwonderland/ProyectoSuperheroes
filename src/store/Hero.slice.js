@@ -8,9 +8,11 @@ const heroSlice = createSlice({
       const newHero = action.payload;
       console.log(newHero, "new");
       const existingItem = state.team.find((item) => item.id === newHero.id);
+      const largeArray = state.team.length;
       if (existingItem) {
         console.log("ya agregado");
-        alert("Ya agregado");
+      } else if (largeArray === 6) {
+        console.log("6 inte");
       } else {
         state.team.push(newHero);
       }
@@ -20,7 +22,7 @@ const heroSlice = createSlice({
     },
     deleteHero(state, action) {
       const id = action.payload;
-      console.log(id,"id")
+      console.log(id, "id");
       state.team = state.team.filter((hero) => hero.id !== id);
     },
   },

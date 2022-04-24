@@ -6,7 +6,7 @@ function SearchBar({ searchCharacter }) {
 
   return (
     <React.Fragment>
-      <h1 className="text-center my-3 superFont mb-3">Buscar Superheroes</h1>
+      <h1 className="text-center supertitle superFont mb-3">Buscador de superheroes</h1>
 
       <div className="container text-center ">
         <div className="row ">

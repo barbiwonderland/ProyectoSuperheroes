@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavEquipo from "../components/NavEquipo";
-import ResumenEquipo from "../components/TeamSum";
+import TeamSum from "../components/TeamSum";
 import TeamCard from "../components/TeamCard";
 import { useSelector } from "react-redux";
 function Equipo({}) {
@@ -12,7 +12,7 @@ function Equipo({}) {
         <div className="row mt-3">
           <NavEquipo />
         </div>
-        <ResumenEquipo equipo={equipo} />
+        <TeamSum equipo={equipo} />
         <div className="row d-flex justify-content-center  ">
           {equipo &&
             equipo.map((x) => (

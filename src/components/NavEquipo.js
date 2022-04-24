@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 // importo acciones
 import { heroActions } from "../store/Hero.slice";
 
-function NavEquipo({ eliminarEquipo }) {
+function NavEquipo( ) {
   const dispatch = useDispatch();
 
   return (

@@ -64,8 +64,8 @@ function Login() {
           console.log(values);
           setSubmitting(false);
           setTimeout(() => {
-            // Una vez que inicio sesión redirecciona a busqueda
-            history.push("/busqueda");
+            // Una vez que inicio sesión redirecciona a Home
+            history.push("/Home");
           }, 1000);
         }}
       >

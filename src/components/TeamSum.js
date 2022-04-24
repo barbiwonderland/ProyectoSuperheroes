@@ -1,6 +1,6 @@
 import React from "react";
-
-function ResumenEquipo({ equipo }) {
+import "../components/styles/Main.css"
+function TeamSum({ equipo }) {
   //Suma Powerstates
   const SumaCombat = equipo.reduce(
     (total, currentValue) =>
@@ -90,12 +90,12 @@ function ResumenEquipo({ equipo }) {
       {equipo.length ? (
         <div>
           <div className="col-12">
-            <hr />
+            <hr className="line" />
 
             <h1 className="superFont f">Equipo</h1>
           </div>
 
-          <div className=" superFont  animate__animated animate__zoomIn py-md-1 dot SumaPowerstats rounded">
+          <div className=" superFont  animate__animated animate__zoomIn py-md-1 dot SumaPowerstats rounded totals">
             <li>Total Combat: {SumaCombat}</li>
             <li>Total Intelligence: {SumaIntelligence}</li>
             <li>Total Strength: {SumaStrength}</li>
@@ -121,4 +121,4 @@ function ResumenEquipo({ equipo }) {
   );
 }
 
-export default ResumenEquipo;
+export default TeamSum;

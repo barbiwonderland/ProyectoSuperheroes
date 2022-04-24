@@ -1,7 +1,7 @@
-.superFont{
-  font-family: 'Bangers', cursive;
-  font-size:3rem;
-  
+.superFont {
+  font-family: "Bangers", cursive;
+  font-size: 3rem;
+  font-weight: bolder;
 }
 .input-with-hint {
   border: 0.9px solid #888;
@@ -23,7 +23,7 @@
   width: 250px;
   margin-bottom: 20px;
 }
-.card img{
+.card img {
   max-height: 280px;
 }
 .card-body {
@@ -38,19 +38,58 @@
   object-fit: cover;
 }
 
-.img-busqueda {
+.img-Home {
   max-height: 40vh;
   object-fit: cover;
 }
 .SumaPowerstats {
   text-transform: capitalize;
   text-align: center;
-  font-size:1.1rem;
+  font-size: 1.1rem;
 }
-.subtitulos{
-  font-size: 2rem!important;
+.subtitulos {
+  font-size: 2rem !important;
+  font-weight: bolder;
+  color: black;
 }
-body{
-    opacity: .9;
+body {
+  opacity: 0.9;
+}
+.totals {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 80%;
+  justify-content: center;
+  margin: 0 auto;
+}
+.totals > li {
+  border: black 1px solid;
+  border-radius: 10px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  padding: 0 10px 0 10px;
+}
+.totals > li:hover {
+  background-color: gainsboro;
+}
+.line {
+  background-color: black;
+}
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  max-height: auto;
+  background-position: center center;
+  background-size: cover;
+  display: inline-block;
+  background:linear-gradient(rgba(30, 26, 26, 0.6), rgba(0, 0, 0, 0.8)), url("https://w0.peakpx.com/wallpaper/687/560/HD-wallpaper-comics-words-superhero-comic-book-design-pow-premium-text-wow.jpg");
 
-  }
+}
+
+.supertitle {
+  padding: 5px 0 5px 0;
+  color: black;
+  font-weight: bolder;
+}
