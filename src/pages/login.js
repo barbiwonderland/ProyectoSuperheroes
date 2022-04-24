@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./styles/form.css";
+import "./../components/styles/form.css"
 import axios from "axios";
 import { Formik } from "formik";
 import { url } from "../PostUrl";

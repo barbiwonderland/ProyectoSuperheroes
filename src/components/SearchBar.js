@@ -1,25 +1,8 @@
-import React, { useEffect, useContext } from "react";
-import userEventContext from "../userEventContext";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { characterId } from "../CharactersId";
 
-
-function SearchBar({ fetchData }) {
-  const { cambioPersonaje } = useContext(userEventContext);
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      fetchData();
-    }
-  };
-  useEffect(() => {
-    //Agrego el menu desplegable
-    for (let i = 0; i < characterId.length; i++) {
-      let option = document.createElement("option");
-      option.value = characterId[i];
-      // console.log(option)
-      document.querySelector("datalist").appendChild(option);
-    }
-  }, []);
+function SearchBar({ searchCharacter }) {
+  const [selectedCharacter, setSelectedCharacter] = useState("");
 
   return (
     <React.Fragment>
@@ -32,8 +15,7 @@ function SearchBar({ fetchData }) {
             <form className=" mt-md-3 mx-auto form-inline my-2 my-lg-0" />
             <input
               placeholder="Escribí tu superheroe favorito..."
-              onChange={cambioPersonaje}
-              onKeyDown={handleKeyDown}
+              onChange={(e) => setSelectedCharacter(e.target.value)}
               className="mt-md-3 input-name form-control  mb-3 text-center"
               type="search"
               aria-label="Search"
@@ -42,7 +24,7 @@ function SearchBar({ fetchData }) {
             />
             <datalist className="datalist" id="characterList"></datalist>
             <button
-              onClick={fetchData}
+              onClick={() => searchCharacter(selectedCharacter)}
               className=" btn m btn-primary
                  my-2 "
               id="buscar"
@@ -50,7 +32,7 @@ function SearchBar({ fetchData }) {
             >
               Buscar
             </button>
-            <Link to="/equipo">
+            <Link to="/team">
               <button className="btn btn-primary mx-3">Equipo</button>
             </Link>
             <div className="error text-center mt-3"></div>

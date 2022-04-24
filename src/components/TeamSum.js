@@ -86,27 +86,38 @@ function ResumenEquipo({ equipo }) {
   console.log(SumaPeso, SumaAltura);
 
   return (
-    <div>
-      <div className="col-12">
-        <hr />
-        <h1 className="superFont f">Equipo</h1>
-      </div>
+    <>
+      {equipo.length ? (
+        <div>
+          <div className="col-12">
+            <hr />
 
-      <div className=" superFont  animate__animated animate__zoomIn py-md-1 dot SumaPowerstats rounded">
-        <li>Total Combat: {SumaCombat}</li>
-        <li>Total Intelligence: {SumaIntelligence}</li>
-        <li>Total Strength: {SumaStrength}</li>
-        <li>Total Speed: {SumaSpeed}</li>
-        <li>Total Durability: {SumaDurability}</li>
-        <li>Total Power: {SumaPower}</li>
-        <li>
-          Altura Promedio: {isNaN(SumaAltura) ? "0" : Math.round(SumaAltura)}cm{" "}
-        </li>
-        <li>
-          Peso Promedio: {isNaN(SumaPeso) ? "0" : Math.round(SumaPeso)}kg{" "}
-        </li>
-      </div>
-    </div>
+            <h1 className="superFont f">Equipo</h1>
+          </div>
+
+          <div className=" superFont  animate__animated animate__zoomIn py-md-1 dot SumaPowerstats rounded">
+            <li>Total Combat: {SumaCombat}</li>
+            <li>Total Intelligence: {SumaIntelligence}</li>
+            <li>Total Strength: {SumaStrength}</li>
+            <li>Total Speed: {SumaSpeed}</li>
+            <li>Total Durability: {SumaDurability}</li>
+            <li>Total Power: {SumaPower}</li>
+            <li>
+              Altura Promedio:{" "}
+              {isNaN(SumaAltura) ? "0" : Math.round(SumaAltura)}cm{" "}
+            </li>
+            <li>
+              Peso Promedio: {isNaN(SumaPeso) ? "0" : Math.round(SumaPeso)}kg{" "}
+            </li>
+          </div>
+        </div>
+      ) : (
+        <div className="col-12 mx-auto mt-5 superFont ">
+        <h3>No hay personajes agregados al equipo</h3>
+
+        </div>
+      )}
+    </>
   );
 }
 
