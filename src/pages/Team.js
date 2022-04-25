@@ -12,14 +12,13 @@ function Equipo({}) {
         <div className="row mt-3">
           <NavEquipo />
         </div>
+
         <TeamSum equipo={equipo} />
         <div className="row d-flex justify-content-center  ">
           {equipo &&
             equipo.map((x) => (
               <div key={x.id}>
-                <TeamCard
-                  equipo={x}
-                />
+                <TeamCard equipo={x} />
               </div>
             ))}
         </div>

@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { characterList } from "../CharacterList"
 function SearchBar({ searchCharacter }) {
   const [selectedCharacter, setSelectedCharacter] = useState("");
-
+  useEffect(() => {
+    //Agrego el menu desplegable
+    for (let i = 0; i < characterList.length; i++) {
+      let option = document.createElement("option");
+      option.value = characterList[i];
+      // console.log(option)
+      document.querySelector("datalist").appendChild(option);
+    }
+  }, []);
   return (
     <React.Fragment>
       <h1 className="text-center supertitle superFont mb-3">Buscador de superheroes</h1>

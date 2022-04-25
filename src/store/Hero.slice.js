@@ -2,19 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const heroSlice = createSlice({
   name: "hero",
-  initialState: { team: [] },
+  initialState: { team: [], badHero: 0, goodHero: 0 },
   reducers: {
     addSuperhero(state, action) {
       const newHero = action.payload;
       console.log(newHero, "new");
-      const existingItem = state.team.find((item) => item.id === newHero.id);
-      const largeArray = state.team.length;
-      if (existingItem) {
-        console.log("ya agregado");
-      } else if (largeArray === 6) {
-        console.log("6 inte");
+      state.team.push(newHero);
+      if (newHero.biography.alignment === "bad") {
+        state.badHero++;
       } else {
-        state.team.push(newHero);
+        state.goodHero++;
       }
     },
     deleteTeam(state) {

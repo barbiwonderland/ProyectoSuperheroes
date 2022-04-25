@@ -10,6 +10,8 @@ function Home() {
   // CommonJS
   const Swal = require("sweetalert2");
   const [searchResult, setSearchResult] = useState("");
+
+
   const searchCharacter = (inputName) => {
     axios
       .get(
@@ -25,11 +27,11 @@ function Home() {
             confirmButtonText: "OK",
             width: 400,
             showClass: {
-              popup: 'animate__animated animate__fadeInDown'
+              popup: "animate__animated animate__fadeInDown",
             },
             hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
-            }
+              popup: "animate__animated animate__fadeOutUp",
+            },
           });
         setSearchResult(res.data.results);
         return res.data;
@@ -37,25 +39,24 @@ function Home() {
   };
   return (
     <>
-    <div className="main">
-    <SearchBar searchCharacter={searchCharacter} />
-      <div className="container text-center ">
-        <div className="container">
-          <div className="row justify-content-center ">
-            {/* Cuando pongo && valida que exista personaje */}
-            {searchResult &&
-              searchResult.map((person, i) => {
-                return (
-                  <div className="mb-sm-0 col-md-4 col-sm-12 " key={i}>
-                    <SearchResults key={person.id} personaje={person} />
-                  </div>
-                );
-              })}
+      <div className="main">
+        <SearchBar searchCharacter={searchCharacter} />
+        <div className="container text-center ">
+          <div className="container">
+            <div className="row justify-content-center ">
+              {/* Cuando pongo && valida que exista personaje */}
+              {searchResult &&
+                searchResult.map((person, i) => {
+                  return (
+                    <div className="mb-sm-0 col-md-4 col-sm-12 " key={i}>
+                      <SearchResults key={person.id} personaje={person} />
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
       </div>
-
-    </div>
     </>
   );
 }
