@@ -1,17 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import Loading from "../components/Loading";
 // ES6 Modules or TypeScript
 import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function Home() {
-  // CommonJS
+  const tokenFromStorage = sessionStorage.getItem("Token");
+  const history = useHistory();
   const Swal = require("sweetalert2");
   const [searchResult, setSearchResult] = useState("");
-
-
+  if (tokenFromStorage === null) {
+    history.push("/login");
+  }
   const searchCharacter = (inputName) => {
     axios
       .get(

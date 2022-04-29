@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "./store";
+import Login from "./pages/login";
 
 
 
@@ -16,6 +17,7 @@ function App() {
       <Switch>
         <Provider store={store}>
             <Route exact path="/" component={Home}  />
+            <Route path="/login" component={Login}/>
             <Route path="/team" component={Team} />
         </Provider>
       </Switch>

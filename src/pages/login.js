@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
-import "./../components/styles/form.css"
+import "./../components/styles/form.css";
 import axios from "axios";
 import { Formik } from "formik";
 import { url } from "../PostUrl";
-import { useHistory } from "react-router-dom";
+import { useHistory,Redirect } from "react-router-dom";
 
 function Login() {
+  const [islogged, setIsLogged] = useState(false);
   const history = useHistory();
-
+  useEffect(() => {
+    const tokenFromStorage = sessionStorage.getItem("Token");
+    if (tokenFromStorage != null) {
+      setIsLogged(true);
+    }
+  }, []);
   // Llamado a la api para obtener el token
   function ApiToken() {
-    // En versión Netlify, error: Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR
     axios
       .post(
         url,
@@ -28,12 +33,19 @@ function Login() {
         (response) => {
           console.log(response.data.token);
           // Guardo el token en Local Storage
-          localStorage.setItem("Token", response.data.token);
+          sessionStorage.setItem("Token", response.data.token);
+          setTimeout(() => {
+            // Una vez que inicio sesión redirecciona a Home
+            history.push("/");
+          }, 1000);
         },
         (error) => {
           console.log(error);
         }
+        
       );
+   
+
   }
 
   return (
@@ -63,10 +75,7 @@ function Login() {
           ApiToken();
           console.log(values);
           setSubmitting(false);
-          setTimeout(() => {
-            // Una vez que inicio sesión redirecciona a Home
-            history.push("/Home");
-          }, 1000);
+      
         }}
       >
         {({
