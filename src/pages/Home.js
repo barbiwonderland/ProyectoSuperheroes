@@ -12,9 +12,10 @@ function Home() {
   const history = useHistory();
   const Swal = require("sweetalert2");
   const [searchResult, setSearchResult] = useState("");
-  if (tokenFromStorage === null) {
-    history.push("/login");
-  }
+  //funcionality remove by problems with ssl
+  // if (tokenFromStorage === null) {
+  //   history.push("/login");
+  // }
   const searchCharacter = (inputName) => {
     axios
       .get(
